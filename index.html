@@ -907,25 +907,47 @@
         }
 
         .footer-social {
-            display: flex;
-            gap: 1rem;
             margin-top: 1.5rem;
         }
 
-        .footer-social a {
-            width: 45px;
-            height: 45px;
-            border: 1px solid rgba(245, 242, 237, 0.2);
-            display: flex;
+        .footer-facebook-btn {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: var(--color-cream);
+            gap: 0.75rem;
+            padding: 0.875rem 1.5rem;
+            background: #1877f2;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
+            border-radius: 4px;
         }
 
-        .footer-social a:hover {
-            border-color: var(--color-gold);
-            color: var(--color-gold);
+        .footer-facebook-btn i {
+            font-size: 1.1rem;
+        }
+
+        .footer-facebook-btn:hover {
+            background: #0d65d9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
+        }
+
+        .footer-facebook-btn span {
+            position: relative;
+        }
+
+        .footer-facebook-btn span::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-facebook-btn:hover span::after {
+            transform: translateX(4px);
         }
 
         .footer-bottom {
@@ -1373,8 +1395,9 @@
                         au service du bien-être de vos chevaux en Normandie.
                     </p>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/fabienwalterpodologueequin" target="_blank" aria-label="Facebook">
+                        <a href="https://www.facebook.com/fabienwalterpodologueequin" target="_blank" class="footer-facebook-btn">
                             <i class="fab fa-facebook-f"></i>
+                            <span>Rejoignez-moi sur Facebook</span>
                         </a>
                     </div>
                 </div>
