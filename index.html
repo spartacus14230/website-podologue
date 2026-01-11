@@ -628,75 +628,133 @@
 
         .magnifier-container {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 380px;
+            height: 420px;
         }
 
-        /* Cercle de la loupe avec l'image zoomée */
+        /* Cercle de la loupe avec l'image */
         .magnifier-glass {
-            width: 300px;
-            height: 300px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             background: url('carte-zone.png') center/cover no-repeat;
-            border: 8px solid var(--color-gold);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
             box-shadow: 
-                0 0 0 4px rgba(196, 169, 98, 0.3),
-                0 20px 50px rgba(0, 0, 0, 0.5),
-                inset 0 0 30px rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
+                inset 0 0 50px rgba(0, 0, 0, 0.15),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            z-index: 2;
         }
 
         /* Reflet sur le verre */
         .magnifier-glass::before {
             content: '';
             position: absolute;
-            top: 10%;
-            left: 15%;
-            width: 30%;
-            height: 20%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+            top: 8%;
+            left: 12%;
+            width: 35%;
+            height: 25%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 100%);
             border-radius: 50%;
-            transform: rotate(-30deg);
+            transform: rotate(-20deg);
         }
 
-        /* Manche de la loupe */
+        /* Monture métallique de la loupe */
+        .magnifier-frame {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 296px;
+            height: 296px;
+            border-radius: 50%;
+            border: 12px solid transparent;
+            background: linear-gradient(145deg, #d4c4a0, #a08050) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 2px 3px rgba(255, 255, 255, 0.4);
+            z-index: 3;
+        }
+
+        /* Manche de la loupe - partie qui connecte */
         .magnifier-handle {
             position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 120px;
-            height: 28px;
-            background: linear-gradient(180deg, #8b7355 0%, #5c4a3a 50%, #3d3225 100%);
-            border-radius: 14px;
-            transform: rotate(45deg);
-            transform-origin: left center;
+            top: 250px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 140px;
+            background: linear-gradient(90deg, 
+                #5c4535 0%, 
+                #8b6b4a 20%, 
+                #a67c52 50%, 
+                #8b6b4a 80%, 
+                #5c4535 100%);
+            border-radius: 0 0 16px 16px;
             box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.4),
-                inset 0 2px 4px rgba(255, 255, 255, 0.2);
+                0 8px 20px rgba(0, 0, 0, 0.4),
+                inset 2px 0 4px rgba(255, 255, 255, 0.2),
+                inset -2px 0 4px rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
 
-        /* Anneau de connexion loupe/manche */
+        /* Anneau de connexion entre verre et manche */
+        .magnifier-connector {
+            position: absolute;
+            top: 240px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 35px;
+            background: linear-gradient(180deg, 
+                #d4c4a0 0%, 
+                #c4a962 30%,
+                #a08050 100%);
+            border-radius: 5px 5px 25px 25px;
+            box-shadow: 
+                0 4px 10px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            z-index: 4;
+        }
+
+        /* Détails décoratifs sur le manche */
         .magnifier-handle::before {
             content: '';
             position: absolute;
-            left: -10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
-            border-radius: 50%;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 26px;
+            height: 4px;
+            background: linear-gradient(90deg, #4a3828, #6b5040, #4a3828);
+            border-radius: 2px;
+        }
+
+        .magnifier-handle::after {
+            content: '';
+            position: absolute;
+            top: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 26px;
+            height: 4px;
+            background: linear-gradient(90deg, #4a3828, #6b5040, #4a3828);
+            border-radius: 2px;
         }
 
         /* Texte sous la loupe */
         .magnifier-label {
             position: absolute;
-            bottom: -50px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--color-gold);
@@ -705,13 +763,16 @@
 
         /* Animation subtile au hover */
         .magnifier-container:hover .magnifier-glass {
-            transform: scale(1.02);
-            transition: transform 0.3s ease;
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.1),
+                inset 0 0 30px rgba(255, 255, 255, 0.15),
+                0 0 30px rgba(196, 169, 98, 0.2);
         }
 
-        .magnifier-container:hover .magnifier-handle {
-            transform: rotate(45deg) translateX(5px);
-            transition: transform 0.3s ease;
+        .magnifier-container:hover .magnifier-frame {
+            box-shadow: 
+                0 4px 20px rgba(196, 169, 98, 0.4),
+                inset 0 2px 3px rgba(255, 255, 255, 0.5);
         }
 
         .zone-content {
@@ -957,18 +1018,30 @@
             }
 
             .magnifier-container {
-                width: 280px;
-                height: 280px;
+                width: 300px;
+                height: 350px;
             }
 
             .magnifier-glass {
-                width: 240px;
-                height: 240px;
+                width: 220px;
+                height: 220px;
+            }
+
+            .magnifier-frame {
+                width: 236px;
+                height: 236px;
+            }
+
+            .magnifier-connector {
+                top: 190px;
+                width: 40px;
+                height: 30px;
             }
 
             .magnifier-handle {
-                width: 100px;
-                height: 24px;
+                top: 200px;
+                width: 28px;
+                height: 120px;
             }
         }
 
@@ -1256,6 +1329,8 @@
             <div class="zone-map reveal">
                 <div class="magnifier-container">
                     <div class="magnifier-glass"></div>
+                    <div class="magnifier-frame"></div>
+                    <div class="magnifier-connector"></div>
                     <div class="magnifier-handle"></div>
                     <span class="magnifier-label">Ma zone d'intervention</span>
                 </div>
@@ -1267,8 +1342,7 @@
                 </div>
                 <h2 class="zone-title">Zone d'intervention</h2>
                 <p class="zone-text">
-                    Basé dans le <strong>Calvados</strong>, j'interviens dans toute la Normandie : 
-                    Calvados, Manche, Orne, Eure et Seine-Maritime. 
+                    Basé dans le <strong>Calvados</strong>, j'interviens également dans la Manche et l'Orne. 
                     Déplacements réguliers toutes les 6 semaines pour un suivi optimal.
                 </p>
                 <a href="contact.html" class="btn btn-primary">Me contacter</a>
