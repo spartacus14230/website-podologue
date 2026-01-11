@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Découvrez Fabien Walter, podologue équin passionné en Normandie. Spécialiste du pied nu, son parcours et sa philosophie.">
+    <meta name="description" content="Découvrez Fabien Walter, podologue équin en Normandie. Spécialiste du pied nu.">
     <title>À Propos | Fabien Walter - Podologue Équin</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
             --color-primary: #2c3e2d;
-            --color-secondary: #8b7355;
-            --color-accent: #c9a86c;
-            --color-light: #f5f3ef;
+            --color-secondary: #5a6b5c;
+            --color-accent: #8b7355;
+            --color-gold: #c9a86c;
+            --color-light: #f8f6f3;
             --color-dark: #1a1a1a;
-            --color-cream: #faf8f5;
-            --color-sage: #9cae9c;
-            --font-display: 'Playfair Display', Georgia, serif;
-            --font-body: 'Source Sans 3', -apple-system, sans-serif;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --color-cream: #fdfcfa;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
         body {
             font-family: var(--font-body);
             background-color: var(--color-cream);
@@ -35,21 +34,17 @@
             line-height: 1.7;
         }
 
-        /* Navigation */
         .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 1rem 2rem;
-            background: rgba(250, 248, 245, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(253, 252, 250, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -59,27 +54,17 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             text-decoration: none;
             color: var(--color-primary);
         }
 
-        .nav-logo-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .nav-logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .nav-logo-icon { width: 48px; height: 48px; }
+        .nav-logo-icon img { width: 100%; height: 100%; }
 
         .nav-logo-text {
             font-family: var(--font-display);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
@@ -93,173 +78,126 @@
             text-decoration: none;
             color: var(--color-dark);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             position: relative;
-            transition: var(--transition);
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
             background: var(--color-accent);
             transition: var(--transition);
         }
 
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
         .nav-toggle {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 5px;
         }
+        .nav-toggle span { width: 24px; height: 2px; background: var(--color-dark); }
 
-        .nav-toggle span {
-            width: 25px;
-            height: 2px;
-            background: var(--color-dark);
-            transition: var(--transition);
-        }
-
-        /* Page Header */
         .page-header {
             padding: 10rem 2rem 5rem;
-            background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-light) 100%);
+            background: var(--color-light);
             text-align: center;
+        }
+
+        .page-header-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
         }
 
         .page-header h1 {
             font-family: var(--font-display);
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             color: var(--color-primary);
-            margin-bottom: 1rem;
+            font-weight: 500;
         }
 
-        .page-header p {
-            font-size: 1.2rem;
-            color: var(--color-dark);
-            opacity: 0.7;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* About Section */
         .about-section {
             padding: 5rem 2rem;
         }
 
         .about-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 5rem;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 4rem;
             align-items: center;
-        }
-
-        .about-image-wrapper {
-            position: relative;
         }
 
         .about-image {
-            aspect-ratio: 3/4;
-            border-radius: 200px 200px 30px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
         }
 
         .about-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .about-decoration {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--color-accent);
-            border-radius: 200px 200px 30px 30px;
-            top: 20px;
-            left: 20px;
-            z-index: -1;
+            display: block;
         }
 
         .about-content h2 {
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--color-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
         }
 
         .about-tagline {
             font-family: var(--font-display);
             font-size: 1.2rem;
-            font-style: italic;
-            color: var(--color-accent);
+            color: var(--color-gold);
             margin-bottom: 2rem;
+            font-style: italic;
         }
 
         .about-content p {
-            color: var(--color-dark);
-            opacity: 0.8;
+            color: #555;
             margin-bottom: 1.5rem;
             line-height: 1.9;
-            font-size: 1.05rem;
         }
 
-        /* Philosophy */
         .philosophy {
             padding: 5rem 2rem;
             background: white;
         }
 
         .philosophy-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .section-header {
             text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem;
+            margin-bottom: 4rem;
         }
 
         .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--color-secondary);
+            color: var(--color-accent);
             margin-bottom: 1rem;
         }
 
         .section-title {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: 2rem;
             color: var(--color-primary);
-            margin-bottom: 1rem;
-        }
-
-        .section-description {
-            font-size: 1.1rem;
-            color: var(--color-dark);
-            opacity: 0.7;
+            font-weight: 500;
         }
 
         .philosophy-grid {
@@ -270,150 +208,116 @@
 
         .philosophy-card {
             text-align: center;
-            padding: 3rem 2rem;
-            background: var(--color-cream);
-            border-radius: 30px;
-            transition: var(--transition);
-        }
-
-        .philosophy-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
 
         .philosophy-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--color-primary);
-            border-radius: 50%;
+            width: 60px; height: 60px;
+            margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: white;
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            border: 1px solid var(--color-secondary);
+            border-radius: 50%;
         }
 
         .philosophy-title {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--color-primary);
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .philosophy-text {
-            color: var(--color-dark);
-            opacity: 0.7;
+            color: #666;
+            font-size: 0.9rem;
             line-height: 1.8;
         }
 
-        /* Social */
         .social {
-            padding: 5rem 2rem;
+            padding: 4rem 2rem;
             background: var(--color-primary);
             color: white;
             text-align: center;
         }
 
-        .social-container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
         .social h2 {
             font-family: var(--font-display);
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .social p {
             opacity: 0.9;
             margin-bottom: 2rem;
-            font-size: 1.1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .social-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             background: white;
             color: var(--color-primary);
-            padding: 1rem 2rem;
-            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
             transition: var(--transition);
         }
 
         .social-link:hover {
-            background: var(--color-accent);
+            background: var(--color-gold);
             color: white;
-            transform: translateY(-2px);
         }
 
-        .social-link i {
-            font-size: 1.2rem;
-        }
-
-        /* CTA */
         .cta {
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+            background: var(--color-light);
             text-align: center;
-            color: white;
-        }
-
-        .cta-container {
-            max-width: 700px;
-            margin: 0 auto;
+            padding: 5rem 2rem;
         }
 
         .cta h2 {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-size: 2rem;
+            color: var(--color-primary);
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
-        .cta p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
+        .cta p { color: #666; margin-bottom: 2rem; }
 
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 1rem 2rem;
-            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: var(--color-primary);
+            color: white;
             transition: var(--transition);
         }
 
-        .btn-primary {
-            background: white;
-            color: var(--color-primary);
-        }
+        .btn:hover { background: var(--color-secondary); }
 
-        .btn-primary:hover {
-            background: var(--color-accent);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
         .footer {
             background: var(--color-dark);
             color: white;
             padding: 4rem 2rem 2rem;
         }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .footer-container { max-width: 1100px; margin: 0 auto; }
 
         .footer-main {
             display: grid;
@@ -422,35 +326,20 @@
             margin-bottom: 3rem;
         }
 
-        .footer-brand p {
-            opacity: 0.7;
-            margin-top: 1rem;
-            line-height: 1.8;
-        }
+        .footer-brand p { opacity: 0.7; margin-top: 1rem; font-size: 0.9rem; }
 
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
         }
 
-        .footer-logo-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .footer-logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .footer-logo-icon { width: 40px; height: 40px; }
+        .footer-logo-icon img { width: 100%; height: 100%; filter: brightness(0) invert(1); }
 
         .footer-logo-text {
             font-family: var(--font-display);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
@@ -458,108 +347,64 @@
             font-family: var(--font-display);
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
+            font-weight: 500;
         }
 
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.8rem;
-        }
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 0.75rem; }
 
         .footer-column a {
             color: white;
             opacity: 0.7;
             text-decoration: none;
+            font-size: 0.9rem;
             transition: var(--transition);
         }
 
-        .footer-column a:hover {
-            opacity: 1;
-            color: var(--color-accent);
-        }
+        .footer-column a:hover { opacity: 1; }
 
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 2rem;
             text-align: center;
-            opacity: 0.6;
-            font-size: 0.9rem;
+            opacity: 0.5;
+            font-size: 0.85rem;
         }
 
-        .footer-bottom p {
-            margin-bottom: 0.3rem;
-        }
-
-        /* Responsive */
         @media (max-width: 992px) {
-            .about-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .about-image-wrapper {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
-            .philosophy-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-main {
-                grid-template-columns: 1fr 1fr;
-            }
+            .about-container { grid-template-columns: 1fr; gap: 2rem; }
+            .about-image { max-width: 400px; margin: 0 auto; }
+            .philosophy-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .footer-main { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 350px;
+                top: 0; right: -100%;
+                width: 80%; max-width: 300px;
                 height: 100vh;
                 background: white;
                 flex-direction: column;
-                padding: 6rem 2rem;
-                gap: 2rem;
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+                padding: 5rem 2rem;
+                gap: 1.5rem;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
                 transition: var(--transition);
             }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-toggle {
-                display: flex;
-                z-index: 1001;
-            }
-
-            .footer-main {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-logo {
-                justify-content: center;
-            }
+            .nav-menu.active { right: 0; }
+            .nav-toggle { display: flex; z-index: 1001; }
+            .footer-main { grid-template-columns: 1fr; text-align: center; }
+            .footer-logo { justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <div class="nav-logo-icon">
-                    <img src="logo-carte.jpg" alt="Logo Fabien Walter">
-                </div>
+                <div class="nav-logo-icon"><img src="logo.png" alt="Logo"></div>
                 <span class="nav-logo-text">Fabien Walter</span>
             </a>
-            
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html" class="nav-link">Accueil</a></li>
                 <li><a href="services.html" class="nav-link">Services</a></li>
@@ -567,35 +412,24 @@
                 <li><a href="galerie.html" class="nav-link">Galerie</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
-            
             <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
     <header class="page-header">
+        <p class="page-header-label">Présentation</p>
         <h1>À Propos</h1>
-        <p>
-            Découvrez mon parcours et ma passion pour la podologie équine.
-        </p>
     </header>
 
-    <!-- About Section -->
     <section class="about-section">
         <div class="about-container">
-            <div class="about-image-wrapper">
-                <div class="about-image">
-                    <img src="logo-carte.jpg" alt="Fabien Walter - Podologue Équin">
-                </div>
-                <div class="about-decoration"></div>
+            <div class="about-image">
+                <img src="hero-pied.jpg" alt="Podologie équine adaptative">
             </div>
-            
             <div class="about-content">
-                <h2>Podologue équin passionné</h2>
+                <h2>Fabien Walter</h2>
                 <p class="about-tagline">Spécialiste du pied nu</p>
                 <p>
                     Installé dans le Calvados, en Normandie, je me consacre entièrement 
@@ -606,120 +440,75 @@
                 <p>
                     Mon approche, la Podologie Équine Adaptative, se veut holistique 
                     et respectueuse. Je considère chaque cheval dans sa globalité : 
-                    son mode de vie, son alimentation, son environnement et son niveau 
-                    d'activité sont autant de facteurs qui influencent la santé de ses pieds.
+                    son mode de vie, son alimentation, son environnement.
                 </p>
                 <p>
                     Je me déplace toutes les 6 semaines dans toute la Normandie pour 
-                    assurer un suivi régulier et personnalisé. Cette régularité est 
-                    essentielle pour accompagner au mieux la transformation des pieds 
-                    et maintenir leur équilibre optimal.
+                    assurer un suivi régulier et personnalisé.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Philosophy -->
     <section class="philosophy">
         <div class="philosophy-container">
             <div class="section-header">
-                <div class="section-label">
-                    <i class="fas fa-leaf"></i>
-                    Ma philosophie
-                </div>
+                <p class="section-label">Ma philosophie</p>
                 <h2 class="section-title">Trois piliers fondamentaux</h2>
-                <p class="section-description">
-                    Ma pratique repose sur des valeurs essentielles qui guident 
-                    chacune de mes interventions.
-                </p>
             </div>
-            
             <div class="philosophy-grid">
                 <div class="philosophy-card">
-                    <div class="philosophy-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
+                    <div class="philosophy-icon"><i class="fas fa-heart"></i></div>
                     <h3 class="philosophy-title">Respect</h3>
                     <p class="philosophy-text">
                         Respect de l'animal dans sa nature profonde, de ses besoins 
-                        physiologiques et de son rythme. Chaque intervention se fait 
-                        dans la bienveillance et le calme.
+                        physiologiques et de son rythme.
                     </p>
                 </div>
-                
                 <div class="philosophy-card">
-                    <div class="philosophy-icon">
-                        <i class="fas fa-dove"></i>
-                    </div>
+                    <div class="philosophy-icon"><i class="fas fa-dove"></i></div>
                     <h3 class="philosophy-title">Liberté</h3>
                     <p class="philosophy-text">
                         Permettre au cheval de retrouver sa liberté de mouvement 
-                        naturelle grâce à des pieds sains et fonctionnels, libérés 
-                        de toute contrainte inutile.
+                        naturelle grâce à des pieds sains.
                     </p>
                 </div>
-                
                 <div class="philosophy-card">
-                    <div class="philosophy-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
+                    <div class="philosophy-icon"><i class="fas fa-cogs"></i></div>
                     <h3 class="philosophy-title">Fonctionnalité</h3>
                     <p class="philosophy-text">
                         Optimiser la fonctionnalité du pied pour qu'il remplisse 
-                        pleinement son rôle d'amortisseur et de propulseur, essentiel 
-                        au bien-être global du cheval.
+                        pleinement son rôle essentiel.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social -->
     <section class="social">
-        <div class="social-container">
-            <h2>Suivez mon actualité</h2>
-            <p>
-                Retrouvez-moi sur Facebook pour suivre mon travail au quotidien, 
-                découvrir des cas pratiques et des conseils en podologie équine.
-            </p>
-            <a href="https://www.facebook.com/fabienwalterpodologueequin" target="_blank" rel="noopener noreferrer" class="social-link">
-                <i class="fab fa-facebook-f"></i>
-                Suivez-moi sur Facebook
-            </a>
-        </div>
+        <h2>Suivez mon actualité</h2>
+        <p>Retrouvez-moi sur Facebook pour découvrir mon travail et des conseils.</p>
+        <a href="https://www.facebook.com/fabienwalterpodologueequin" target="_blank" class="social-link">
+            <i class="fab fa-facebook-f"></i> Facebook
+        </a>
     </section>
 
-    <!-- CTA -->
     <section class="cta">
-        <div class="cta-container">
-            <h2>Un projet pour votre cheval ?</h2>
-            <p>
-                Contactez-moi pour discuter de vos besoins en podologie équine.
-            </p>
-            <a href="contact.html" class="btn btn-primary">
-                <i class="fas fa-calendar-alt"></i>
-                Prendre rendez-vous
-            </a>
-        </div>
+        <h2>Un projet pour votre cheval ?</h2>
+        <p>Contactez-moi pour discuter de vos besoins.</p>
+        <a href="contact.html" class="btn">Prendre rendez-vous</a>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-main">
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <div class="footer-logo-icon">
-                            <img src="logo-carte.jpg" alt="Logo">
-                        </div>
-                        <div class="footer-logo-text">Fabien Walter</div>
+                        <div class="footer-logo-icon"><img src="logo.png" alt="Logo"></div>
+                        <span class="footer-logo-text">Fabien Walter</span>
                     </div>
-                    <p>
-                        Podologue équin passionné, spécialiste du pied nu, 
-                        au service du bien-être de vos chevaux en Normandie.
-                    </p>
+                    <p>Podologue équin, spécialiste du pied nu, en Normandie.</p>
                 </div>
-                
                 <div class="footer-column">
                     <h4>Navigation</h4>
                     <ul>
@@ -729,7 +518,6 @@
                         <li><a href="galerie.html">Galerie</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-column">
                     <h4>Services</h4>
                     <ul>
@@ -738,7 +526,6 @@
                         <li><a href="services.html">Formation</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-column">
                     <h4>Contact</h4>
                     <ul>
@@ -748,10 +535,8 @@
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2026 Fabien Walter - Podologue Équin. Tous droits réservés.</p>
-                <p>SIRET : 827 695 016 000 36</p>
+                <p>&copy; 2026 Fabien Walter - Podologue Équin | SIRET : 827 695 016 000 36</p>
             </div>
         </div>
     </footer>
@@ -759,16 +544,7 @@
     <script>
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
-        
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
+        navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
     </script>
 </body>
 </html>

@@ -4,26 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabien Walter - Podologue Équin en Normandie. Spécialiste du pied nu, podologie équine adaptative dans le Calvados.">
-    <meta name="keywords" content="podologue équin, podologie équine, parage, pied nu, Normandie, Calvados, cheval, sabots">
     <title>Fabien Walter | Podologue Équin en Normandie</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
             --color-primary: #2c3e2d;
-            --color-secondary: #8b7355;
-            --color-accent: #c9a86c;
-            --color-light: #f5f3ef;
+            --color-secondary: #5a6b5c;
+            --color-accent: #8b7355;
+            --color-gold: #c9a86c;
+            --color-light: #f8f6f3;
             --color-dark: #1a1a1a;
-            --color-cream: #faf8f5;
-            --color-sage: #9cae9c;
-            --font-display: 'Playfair Display', Georgia, serif;
-            --font-body: 'Source Sans 3', -apple-system, sans-serif;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --color-cream: #fdfcfa;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,7 +33,7 @@
             background-color: var(--color-cream);
             color: var(--color-dark);
             line-height: 1.7;
-            overflow-x: hidden;
+            font-weight: 400;
         }
 
         /* Navigation */
@@ -50,13 +49,12 @@
         }
 
         .nav.scrolled {
-            background: rgba(250, 248, 245, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(253, 252, 250, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -66,31 +64,26 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             text-decoration: none;
             color: var(--color-primary);
         }
 
         .nav-logo-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            width: 48px;
+            height: 48px;
         }
 
         .nav-logo-icon img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
         }
 
         .nav-logo-text {
             font-family: var(--font-display);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .nav-menu {
@@ -103,7 +96,9 @@
             text-decoration: none;
             color: var(--color-dark);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             position: relative;
             transition: var(--transition);
         }
@@ -111,10 +106,10 @@
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -4px;
             left: 0;
             width: 0;
-            height: 2px;
+            height: 1px;
             background: var(--color-accent);
             transition: var(--transition);
         }
@@ -133,7 +128,7 @@
         }
 
         .nav-toggle span {
-            width: 25px;
+            width: 24px;
             height: 2px;
             background: var(--color-dark);
             transition: var(--transition);
@@ -142,76 +137,62 @@
         /* Hero */
         .hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-light) 100%);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(ellipse, var(--color-sage) 0%, transparent 70%);
-            opacity: 0.15;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-30px, 30px) rotate(5deg); }
-        }
-
-        .hero-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+            background: var(--color-cream);
         }
 
-        .hero-content h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            color: var(--color-primary);
-            line-height: 1.2;
-            margin-bottom: 1rem;
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 4rem 4rem 6rem;
         }
 
-        .hero-content h1 span {
-            color: var(--color-secondary);
-            display: block;
-        }
-
-        .hero-tagline {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            font-style: italic;
+        .hero-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             color: var(--color-accent);
             margin-bottom: 1.5rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--color-dark);
-            opacity: 0.8;
-            margin-bottom: 2rem;
-            max-width: 500px;
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 600;
+            color: var(--color-primary);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            display: block;
+            color: var(--color-secondary);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            color: #555;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            flex-wrap: wrap;
         }
 
         .btn {
@@ -219,13 +200,14 @@
             align-items: center;
             gap: 0.5rem;
             padding: 1rem 2rem;
-            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             transition: var(--transition);
-            cursor: pointer;
             border: none;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -235,44 +217,22 @@
 
         .btn-primary:hover {
             background: var(--color-secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(44, 62, 45, 0.3);
         }
 
-        .btn-secondary {
+        .btn-outline {
             background: transparent;
             color: var(--color-primary);
-            border: 2px solid var(--color-primary);
+            border: 1px solid var(--color-primary);
         }
 
-        .btn-secondary:hover {
+        .btn-outline:hover {
             background: var(--color-primary);
             color: white;
         }
 
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-image-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-        }
-
         .hero-image {
-            width: 100%;
-            aspect-ratio: 4/5;
-            border-radius: 200px 200px 100px 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
         }
 
         .hero-image img {
@@ -281,67 +241,40 @@
             object-fit: cover;
         }
 
-        .hero-decoration {
+        .hero-image-overlay {
             position: absolute;
-            width: 120%;
-            height: 120%;
-            border: 2px solid var(--color-accent);
-            border-radius: 200px 200px 100px 100px;
-            top: 20px;
-            left: -10%;
-            z-index: -1;
-        }
-
-        .hero-badge {
-            position: absolute;
-            bottom: 10%;
-            right: -20px;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .hero-badge-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--color-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
             color: white;
         }
 
-        .hero-badge-text {
+        .hero-image-text {
             font-family: var(--font-display);
-            font-size: 1.1rem;
-            color: var(--color-primary);
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.4;
         }
 
-        /* Values */
-        .values {
+        /* Section commune */
+        .section {
             padding: 6rem 2rem;
-            background: white;
         }
 
         .section-header {
             text-align: center;
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto 4rem;
         }
 
         .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--color-secondary);
+            color: var(--color-accent);
             margin-bottom: 1rem;
         }
 
@@ -349,70 +282,61 @@
             font-family: var(--font-display);
             font-size: clamp(2rem, 4vw, 2.8rem);
             color: var(--color-primary);
-            margin-bottom: 1rem;
+            font-weight: 500;
         }
 
-        .section-description {
-            font-size: 1.1rem;
-            color: var(--color-dark);
-            opacity: 0.7;
+        /* Values */
+        .values {
+            background: white;
         }
 
         .values-grid {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .value-card {
             text-align: center;
-            padding: 3rem 2rem;
-            background: var(--color-cream);
-            border-radius: 30px;
-            transition: var(--transition);
-        }
-
-        .value-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem 2rem;
         }
 
         .value-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--color-primary);
-            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: white;
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            border: 1px solid var(--color-secondary);
+            border-radius: 50%;
         }
 
         .value-title {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--color-primary);
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .value-text {
-            color: var(--color-dark);
-            opacity: 0.7;
+            color: #666;
+            font-size: 0.95rem;
             line-height: 1.8;
         }
 
         /* Services */
         .services {
-            padding: 6rem 2rem;
-            background: var(--color-cream);
+            background: var(--color-light);
         }
 
         .services-grid {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -422,26 +346,24 @@
         .service-card {
             background: white;
             padding: 2.5rem;
-            border-radius: 30px;
+            border: 1px solid #eee;
             transition: var(--transition);
-            border: 1px solid transparent;
         }
 
         .service-card:hover {
-            border-color: var(--color-accent);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-gold);
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-primary) 100%);
-            border-radius: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--color-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: white;
+            font-size: 1.3rem;
+            color: var(--color-primary);
             margin-bottom: 1.5rem;
         }
 
@@ -450,94 +372,98 @@
             font-size: 1.4rem;
             color: var(--color-primary);
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .service-description {
-            color: var(--color-dark);
-            opacity: 0.7;
-            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
             line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
 
         .service-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--color-secondary);
+            color: var(--color-accent);
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             transition: var(--transition);
         }
 
         .service-link:hover {
             color: var(--color-primary);
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         /* Zone */
         .zone {
-            padding: 6rem 2rem;
             background: var(--color-primary);
             color: white;
             text-align: center;
+            padding: 5rem 2rem;
         }
 
         .zone-container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
+        }
+
+        .zone-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-gold);
         }
 
         .zone h2 {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .zone p {
-            font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 2rem;
+            line-height: 1.8;
         }
 
-        .zone-icon {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            color: var(--color-accent);
+        .zone .btn-primary {
+            background: white;
+            color: var(--color-primary);
+        }
+
+        .zone .btn-primary:hover {
+            background: var(--color-gold);
+            color: white;
         }
 
         /* CTA */
         .cta {
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+            background: var(--color-light);
             text-align: center;
-            color: white;
+            padding: 5rem 2rem;
         }
 
         .cta-container {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .cta h2 {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-size: 2rem;
+            color: var(--color-primary);
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .cta p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            color: #666;
             margin-bottom: 2rem;
-        }
-
-        .cta .btn-primary {
-            background: white;
-            color: var(--color-primary);
-        }
-
-        .cta .btn-primary:hover {
-            background: var(--color-accent);
-            color: white;
         }
 
         /* Footer */
@@ -548,7 +474,7 @@
         }
 
         .footer-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -562,32 +488,30 @@
         .footer-brand p {
             opacity: 0.7;
             margin-top: 1rem;
+            font-size: 0.9rem;
             line-height: 1.8;
         }
 
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
         }
 
         .footer-logo-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            overflow: hidden;
+            width: 40px;
+            height: 40px;
         }
 
         .footer-logo-icon img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            filter: brightness(0) invert(1);
         }
 
         .footer-logo-text {
             font-family: var(--font-display);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
@@ -595,6 +519,7 @@
             font-family: var(--font-display);
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
+            font-weight: 500;
         }
 
         .footer-column ul {
@@ -602,63 +527,57 @@
         }
 
         .footer-column li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.75rem;
         }
 
         .footer-column a {
             color: white;
             opacity: 0.7;
             text-decoration: none;
+            font-size: 0.9rem;
             transition: var(--transition);
         }
 
         .footer-column a:hover {
             opacity: 1;
-            color: var(--color-accent);
         }
 
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 2rem;
             text-align: center;
-            opacity: 0.6;
-            font-size: 0.9rem;
-        }
-
-        .footer-bottom p {
-            margin-bottom: 0.3rem;
+            opacity: 0.5;
+            font-size: 0.85rem;
         }
 
         /* Responsive */
         @media (max-width: 992px) {
-            .hero-container {
+            .hero {
                 grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                padding: 8rem 2rem 4rem;
                 text-align: center;
             }
 
-            .hero-content h1, .hero-subtitle {
-                max-width: 100%;
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .hero-buttons {
                 justify-content: center;
             }
 
-            .hero-visual {
-                order: -1;
+            .hero-image {
+                height: 50vh;
             }
 
-            .hero-image-wrapper {
-                max-width: 350px;
-            }
-
-            .values-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-            }
-
+            .values-grid,
             .services-grid {
                 grid-template-columns: 1fr;
+                max-width: 500px;
             }
 
             .footer-main {
@@ -672,13 +591,13 @@
                 top: 0;
                 right: -100%;
                 width: 80%;
-                max-width: 350px;
+                max-width: 300px;
                 height: 100vh;
                 background: white;
                 flex-direction: column;
-                padding: 6rem 2rem;
-                gap: 2rem;
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+                padding: 5rem 2rem;
+                gap: 1.5rem;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
                 transition: var(--transition);
             }
 
@@ -708,7 +627,7 @@
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
                 <div class="nav-logo-icon">
-                    <img src="logo-carte.jpg" alt="Logo Fabien Walter">
+                    <img src="logo.png" alt="Logo Fabien Walter">
                 </div>
                 <span class="nav-logo-text">Fabien Walter</span>
             </a>
@@ -731,59 +650,43 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>
-                    Podologue Équin
-                    <span>en Normandie</span>
-                </h1>
-                <p class="hero-tagline">Podologie Équine Adaptative</p>
-                <p class="hero-subtitle">
-                    Spécialiste du pied nu, je me consacre au bien-être 
-                    et à la santé des pieds de vos chevaux dans tout 
-                    le Calvados et la Normandie.
-                </p>
-                <div class="hero-buttons">
-                    <a href="contact.html" class="btn btn-primary">
-                        <i class="fas fa-calendar-alt"></i>
-                        Prendre rendez-vous
-                    </a>
-                    <a href="services.html" class="btn btn-secondary">
-                        <i class="fas fa-info-circle"></i>
-                        Découvrir mes services
-                    </a>
-                </div>
+        <div class="hero-content">
+            <p class="hero-label">Podologue Équin • Calvados</p>
+            <h1 class="hero-title">
+                Fabien Walter
+                <span>Spécialiste du pied nu</span>
+            </h1>
+            <p class="hero-tagline">Podologie Équine Adaptative</p>
+            <p class="hero-description">
+                Basé en Normandie, je me consacre au bien-être et à la santé 
+                des pieds de vos chevaux avec une approche respectueuse et adaptée 
+                à chaque animal.
+            </p>
+            <div class="hero-buttons">
+                <a href="contact.html" class="btn btn-primary">
+                    Prendre rendez-vous
+                </a>
+                <a href="services.html" class="btn btn-outline">
+                    Mes services
+                </a>
             </div>
-            
-            <div class="hero-visual">
-                <div class="hero-image-wrapper">
-                    <div class="hero-image">
-                        <img src="hero-pied.jpg" alt="Podologie équine adaptative - Respect, Liberté, Fonctionnalité">
-                    </div>
-                    <div class="hero-decoration"></div>
-                    <div class="hero-badge">
-                        <div class="hero-badge-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="hero-badge-text">Calvados</div>
-                    </div>
-                </div>
+        </div>
+        
+        <div class="hero-image">
+            <img src="hero-pied.jpg" alt="Podologie équine - Respect, Liberté, Fonctionnalité">
+            <div class="hero-image-overlay">
+                <p class="hero-image-text">
+                    Respect • Liberté • Fonctionnalité
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Values -->
-    <section class="values">
+    <section class="section values">
         <div class="section-header">
-            <div class="section-label">
-                <i class="fas fa-leaf"></i>
-                Ma philosophie
-            </div>
+            <p class="section-label">Ma philosophie</p>
             <h2 class="section-title">Trois piliers fondamentaux</h2>
-            <p class="section-description">
-                Mon approche repose sur des valeurs essentielles qui guident 
-                chacune de mes interventions au service de vos équidés.
-            </p>
         </div>
         
         <div class="values-grid">
@@ -807,7 +710,7 @@
                 <p class="value-text">
                     Permettre au cheval de retrouver sa liberté de mouvement 
                     naturelle grâce à des pieds sains et fonctionnels, 
-                    sans contraintes inutiles.
+                    sans contraintes.
                 </p>
             </div>
             
@@ -819,24 +722,17 @@
                 <p class="value-text">
                     Optimiser la fonctionnalité du pied pour qu'il remplisse 
                     pleinement son rôle d'amortisseur et de propulseur, 
-                    essentiel au bien-être du cheval.
+                    essentiel au bien-être.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Services -->
-    <section class="services" id="services">
+    <section class="section services">
         <div class="section-header">
-            <div class="section-label">
-                <i class="fas fa-hand-holding-heart"></i>
-                Mes prestations
-            </div>
-            <h2 class="section-title">Services de podologie équine</h2>
-            <p class="section-description">
-                Des soins adaptés à chaque cheval, pour une santé optimale 
-                de leurs pieds.
-            </p>
+            <p class="section-label">Prestations</p>
+            <h2 class="section-title">Mes services</h2>
         </div>
         
         <div class="services-grid">
@@ -847,7 +743,7 @@
                 <h3 class="service-title">Parage</h3>
                 <p class="service-description">
                     Le parage respectueux de la physiologie du pied, favorisant 
-                    l'équilibre naturel et le confort du cheval au quotidien.
+                    l'équilibre naturel et le confort du cheval.
                 </p>
                 <a href="services.html" class="service-link">
                     En savoir plus <i class="fas fa-arrow-right"></i>
@@ -860,8 +756,8 @@
                 </div>
                 <h3 class="service-title">Suivi pathologique</h3>
                 <p class="service-description">
-                    Accompagnement des chevaux présentant des pathologies podales : 
-                    fourbure, seimes, pieds plats, abcès récurrents.
+                    Accompagnement des chevaux présentant des pathologies : 
+                    fourbure, seimes, pieds plats, abcès.
                 </p>
                 <a href="services.html" class="service-link">
                     En savoir plus <i class="fas fa-arrow-right"></i>
@@ -874,8 +770,8 @@
                 </div>
                 <h3 class="service-title">Formation & Conseil</h3>
                 <p class="service-description">
-                    Sensibilisation et formation des propriétaires aux soins 
-                    quotidiens et à l'entretien des pieds de leurs chevaux.
+                    Sensibilisation des propriétaires aux soins quotidiens 
+                    et à l'entretien des pieds.
                 </p>
                 <a href="services.html" class="service-link">
                     En savoir plus <i class="fas fa-arrow-right"></i>
@@ -888,16 +784,14 @@
     <section class="zone">
         <div class="zone-container">
             <div class="zone-icon">
-                <i class="fas fa-map-marked-alt"></i>
+                <i class="fas fa-map-marker-alt"></i>
             </div>
             <h2>Zone d'intervention</h2>
             <p>
                 Basé dans le Calvados, j'interviens dans toute la Normandie. 
-                Je me déplace régulièrement toutes les 6 semaines pour assurer 
-                un suivi optimal de vos chevaux.
+                Déplacements réguliers toutes les 6 semaines pour un suivi optimal.
             </p>
             <a href="contact.html" class="btn btn-primary">
-                <i class="fas fa-envelope"></i>
                 Me contacter
             </a>
         </div>
@@ -908,11 +802,9 @@
         <div class="cta-container">
             <h2>Un projet pour votre cheval ?</h2>
             <p>
-                Contactez-moi pour discuter de vos besoins en podologie équine. 
-                Je serai ravi de vous accompagner.
+                Contactez-moi pour discuter de vos besoins en podologie équine.
             </p>
             <a href="contact.html" class="btn btn-primary">
-                <i class="fas fa-calendar-alt"></i>
                 Prendre rendez-vous
             </a>
         </div>
@@ -925,13 +817,13 @@
                 <div class="footer-brand">
                     <div class="footer-logo">
                         <div class="footer-logo-icon">
-                            <img src="logo-carte.jpg" alt="Logo">
+                            <img src="logo.png" alt="Logo">
                         </div>
-                        <div class="footer-logo-text">Fabien Walter</div>
+                        <span class="footer-logo-text">Fabien Walter</span>
                     </div>
                     <p>
-                        Podologue équin passionné, spécialiste du pied nu, 
-                        au service du bien-être de vos chevaux en Normandie.
+                        Podologue équin, spécialiste du pied nu, 
+                        au service de vos chevaux en Normandie.
                     </p>
                 </div>
                 
@@ -965,24 +857,17 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2026 Fabien Walter - Podologue Équin. Tous droits réservés.</p>
-                <p>SIRET : 827 695 016 000 36</p>
+                <p>&copy; 2026 Fabien Walter - Podologue Équin | SIRET : 827 695 016 000 36</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Navigation scroll effect
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            nav.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Mobile menu toggle
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
         
@@ -994,28 +879,6 @@
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
             });
-        });
-
-        // Scroll reveal animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.value-card, .service-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
         });
     </script>
 </body>
