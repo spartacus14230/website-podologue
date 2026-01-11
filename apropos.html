@@ -371,29 +371,23 @@
         .publication-card {
             display: flex;
             gap: 2rem;
-            padding: 2rem;
-            background: var(--color-cream);
-            transition: all 0.3s ease;
+            align-items: flex-start;
         }
 
-        .publication-card:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        .publication-card:hover .publication-cover img {
+            transform: scale(1.02);
         }
 
         .publication-cover {
             width: 120px;
             flex-shrink: 0;
-            line-height: 0;
-            font-size: 0;
-            overflow: hidden;
         }
 
         .publication-cover img {
             width: 100%;
-            height: auto;
             display: block;
-            vertical-align: bottom;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
         }
 
         .publication-content h3 {
