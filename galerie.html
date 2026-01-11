@@ -399,6 +399,14 @@
                 text-align: center;
             }
         }
+            /* Protection des images */
+        img {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -524,6 +532,20 @@
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
             });
+        });
+
+        // Protection des images
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
         });
     </script>
 </body>

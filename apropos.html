@@ -759,6 +759,14 @@
                 text-align: center;
             }
         }
+            /* Protection des images */
+        img {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -1066,6 +1074,20 @@
 
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
+
+        // Protection des images
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 </body>
 </html>
