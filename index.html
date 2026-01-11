@@ -623,39 +623,95 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 2rem;
         }
 
-        .zone-map svg {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
+        .magnifier-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
         }
 
-        .zone-map svg path {
-            fill: rgba(196, 169, 98, 0.15);
-            stroke: var(--color-gold);
-            stroke-width: 1.5;
-            transition: all 0.3s ease;
+        /* Cercle de la loupe avec l'image zoomée */
+        .magnifier-glass {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: url('carte-zone.png') center/cover no-repeat;
+            border: 8px solid var(--color-gold);
+            box-shadow: 
+                0 0 0 4px rgba(196, 169, 98, 0.3),
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .zone-map svg path:hover {
-            fill: rgba(196, 169, 98, 0.3);
-        }
-
-        .zone-map svg circle {
-            fill: var(--color-gold);
-            filter: drop-shadow(0 0 10px rgba(196, 169, 98, 0.5));
-        }
-
-        .zone-map-label {
+        /* Reflet sur le verre */
+        .magnifier-glass::before {
+            content: '';
             position: absolute;
-            background: var(--color-gold);
-            color: var(--color-dark);
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1px;
+            top: 10%;
+            left: 15%;
+            width: 30%;
+            height: 20%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+            border-radius: 50%;
+            transform: rotate(-30deg);
+        }
+
+        /* Manche de la loupe */
+        .magnifier-handle {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 120px;
+            height: 28px;
+            background: linear-gradient(180deg, #8b7355 0%, #5c4a3a 50%, #3d3225 100%);
+            border-radius: 14px;
+            transform: rotate(45deg);
+            transform-origin: left center;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Anneau de connexion loupe/manche */
+        .magnifier-handle::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Texte sous la loupe */
+        .magnifier-label {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            color: var(--color-gold);
+            white-space: nowrap;
+        }
+
+        /* Animation subtile au hover */
+        .magnifier-container:hover .magnifier-glass {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        .magnifier-container:hover .magnifier-handle {
+            transform: rotate(45deg) translateX(5px);
+            transition: transform 0.3s ease;
         }
 
         .zone-content {
@@ -893,10 +949,26 @@
 
             .zone-map {
                 order: 2;
+                margin-top: 2rem;
             }
 
             .zone-content {
                 order: 1;
+            }
+
+            .magnifier-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .magnifier-glass {
+                width: 240px;
+                height: 240px;
+            }
+
+            .magnifier-handle {
+                width: 100px;
+                height: 24px;
             }
         }
 
@@ -1182,35 +1254,11 @@
     <section class="section zone">
         <div class="zone-container">
             <div class="zone-map reveal">
-                <!-- Carte simplifiée de la Normandie avec les 5 départements -->
-                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Manche -->
-                    <path d="M20 80 L60 40 L100 50 L120 80 L100 120 L80 140 L40 130 L20 100 Z" data-dept="Manche">
-                        <title>Manche</title>
-                    </path>
-                    <!-- Calvados -->
-                    <path d="M100 50 L180 40 L220 60 L200 100 L160 120 L100 120 L120 80 Z" data-dept="Calvados">
-                        <title>Calvados (Base)</title>
-                    </path>
-                    <!-- Orne -->
-                    <path d="M80 140 L100 120 L160 120 L200 100 L200 160 L160 200 L100 200 L60 170 Z" data-dept="Orne">
-                        <title>Orne</title>
-                    </path>
-                    <!-- Eure -->
-                    <path d="M200 100 L220 60 L300 50 L340 80 L320 140 L280 160 L200 160 Z" data-dept="Eure">
-                        <title>Eure</title>
-                    </path>
-                    <!-- Seine-Maritime -->
-                    <path d="M220 60 L260 20 L340 10 L380 40 L380 80 L340 80 L300 50 Z" data-dept="Seine-Maritime">
-                        <title>Seine-Maritime</title>
-                    </path>
-                    <!-- Point de localisation (Calvados) -->
-                    <circle cx="160" cy="85" r="8"/>
-                    <circle cx="160" cy="85" r="15" fill="none" stroke="#c4a962" stroke-width="2" opacity="0.5">
-                        <animate attributeName="r" from="10" to="25" dur="2s" repeatCount="indefinite"/>
-                        <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                </svg>
+                <div class="magnifier-container">
+                    <div class="magnifier-glass"></div>
+                    <div class="magnifier-handle"></div>
+                    <span class="magnifier-label">Ma zone d'intervention</span>
+                </div>
             </div>
             
             <div class="zone-content reveal">
