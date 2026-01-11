@@ -380,16 +380,16 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
         }
 
-        .publication-icon {
-            width: 80px;
-            height: 100px;
-            background: var(--color-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--color-gold);
+        .publication-cover {
+            width: 120px;
             flex-shrink: 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .publication-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .publication-content h3 {
@@ -741,9 +741,8 @@
                 text-align: center;
             }
 
-            .publication-icon {
-                width: 60px;
-                height: 80px;
+            .publication-cover {
+                width: 100px;
                 margin: 0 auto;
             }
 
@@ -897,8 +896,8 @@
             
             <div class="publications-grid">
                 <div class="publication-card reveal">
-                    <div class="publication-icon">
-                        <i class="fas fa-book"></i>
+                    <div class="publication-cover">
+                        <img src="livre.png" alt="Couverture du livre Podologie équine">
                     </div>
                     <div class="publication-content">
                         <h3>"Podologie équine"</h3>
@@ -911,8 +910,8 @@
                 </div>
                 
                 <div class="publication-card reveal">
-                    <div class="publication-icon">
-                        <i class="fas fa-newspaper"></i>
+                    <div class="publication-cover">
+                        <img src="magazine.jpg" alt="Couverture Ne Western N°47">
                     </div>
                     <div class="publication-content">
                         <h3>"Bien dans ses pieds avec ou sans fer"</h3>
