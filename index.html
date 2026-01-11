@@ -609,26 +609,65 @@
             overflow: hidden;
         }
 
-        .zone::before {
-            content: '';
+        .zone-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .zone-map {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .zone-map svg {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        .zone-map svg path {
+            fill: rgba(196, 169, 98, 0.15);
+            stroke: var(--color-gold);
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .zone-map svg path:hover {
+            fill: rgba(196, 169, 98, 0.3);
+        }
+
+        .zone-map svg circle {
+            fill: var(--color-gold);
+            filter: drop-shadow(0 0 10px rgba(196, 169, 98, 0.5));
+        }
+
+        .zone-map-label {
             position: absolute;
-            inset: 0;
-            background: url('hero-pied.jpg') center/cover no-repeat;
-            opacity: 0.1;
+            background: var(--color-gold);
+            color: var(--color-dark);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .zone-content {
             position: relative;
             z-index: 10;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+            text-align: left;
         }
 
         .zone-icon {
             width: 80px;
             height: 80px;
-            margin: 0 auto 2rem;
+            margin-bottom: 2rem;
             border: 1px solid var(--color-gold);
             border-radius: 50%;
             display: flex;
@@ -651,6 +690,11 @@
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 3rem;
+        }
+
+        .zone-text strong {
+            color: var(--color-gold);
+            font-weight: 500;
         }
 
         /* CTA Section */
@@ -832,6 +876,27 @@
 
             .about-image-frame {
                 display: none;
+            }
+
+            .zone-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .zone-content {
+                text-align: center;
+            }
+
+            .zone-icon {
+                margin: 0 auto 2rem;
+            }
+
+            .zone-map {
+                order: 2;
+            }
+
+            .zone-content {
+                order: 1;
             }
         }
 
@@ -1115,17 +1180,51 @@
 
     <!-- Zone Section -->
     <section class="section zone">
-        <div class="zone-content reveal">
-            <div class="zone-icon">
-                <i class="fas fa-map-marker-alt"></i>
+        <div class="zone-container">
+            <div class="zone-map reveal">
+                <!-- Carte simplifiée de la Normandie avec les 5 départements -->
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Manche -->
+                    <path d="M20 80 L60 40 L100 50 L120 80 L100 120 L80 140 L40 130 L20 100 Z" data-dept="Manche">
+                        <title>Manche</title>
+                    </path>
+                    <!-- Calvados -->
+                    <path d="M100 50 L180 40 L220 60 L200 100 L160 120 L100 120 L120 80 Z" data-dept="Calvados">
+                        <title>Calvados (Base)</title>
+                    </path>
+                    <!-- Orne -->
+                    <path d="M80 140 L100 120 L160 120 L200 100 L200 160 L160 200 L100 200 L60 170 Z" data-dept="Orne">
+                        <title>Orne</title>
+                    </path>
+                    <!-- Eure -->
+                    <path d="M200 100 L220 60 L300 50 L340 80 L320 140 L280 160 L200 160 Z" data-dept="Eure">
+                        <title>Eure</title>
+                    </path>
+                    <!-- Seine-Maritime -->
+                    <path d="M220 60 L260 20 L340 10 L380 40 L380 80 L340 80 L300 50 Z" data-dept="Seine-Maritime">
+                        <title>Seine-Maritime</title>
+                    </path>
+                    <!-- Point de localisation (Calvados) -->
+                    <circle cx="160" cy="85" r="8"/>
+                    <circle cx="160" cy="85" r="15" fill="none" stroke="#c4a962" stroke-width="2" opacity="0.5">
+                        <animate attributeName="r" from="10" to="25" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
             </div>
-            <h2 class="zone-title">Zone d'intervention</h2>
-            <p class="zone-text">
-                Basé dans le Calvados, j'interviens dans toute la Normandie : 
-                Calvados, Manche, Orne, Eure et Seine-Maritime. 
-                Déplacements réguliers toutes les 6 semaines pour un suivi optimal.
-            </p>
-            <a href="contact.html" class="btn btn-primary">Me contacter</a>
+            
+            <div class="zone-content reveal">
+                <div class="zone-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h2 class="zone-title">Zone d'intervention</h2>
+                <p class="zone-text">
+                    Basé dans le <strong>Calvados</strong>, j'interviens dans toute la Normandie : 
+                    Calvados, Manche, Orne, Eure et Seine-Maritime. 
+                    Déplacements réguliers toutes les 6 semaines pour un suivi optimal.
+                </p>
+                <a href="contact.html" class="btn btn-primary">Me contacter</a>
+            </div>
         </div>
     </section>
 
