@@ -551,7 +551,7 @@
                     </div>
                     <div class="contact-item-content">
                         <h3>Tournées</h3>
-                        <p>Toutes les 6 semaines</p>
+                        <p>Tournées adaptées à chaque situation</p>
                     </div>
                 </div>
                 
@@ -635,8 +635,7 @@
             <i class="fas fa-map-marked-alt"></i>
             <h2>Zone d'intervention</h2>
             <p>
-                Basé dans le Calvados, j'interviens également dans la Manche et l'Orne. 
-                Déplacements toutes les 6 semaines.
+                Basé dans le Calvados, j'interviens également dans la Manche et l'Orne.
             </p>
         </div>
     </section>
@@ -737,18 +736,22 @@
             submitBtn.textContent = 'Envoyer';
         });
 
-        // Protection des images
+        // Protection du site
         document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
         });
         document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
         });
     </script>
 </body>

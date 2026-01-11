@@ -511,8 +511,7 @@
                     <h2>Suivi pathologique</h2>
                     <p>
                         Certains chevaux présentent des pathologies podales nécessitant 
-                        un suivi spécifique. Fourbure, seimes, pieds plats, talons fuyants, 
-                        abcès récurrents... chaque situation demande une approche adaptée.
+                        un suivi spécifique. Chaque situation demande une approche adaptée.
                     </p>
                     <p>
                         Je travaille en collaboration avec les vétérinaires pour offrir 
@@ -627,18 +626,22 @@
         const navMenu = document.getElementById('navMenu');
         navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-        // Protection des images
+        // Protection du site
         document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
         });
         document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
         });
     </script>
 </body>

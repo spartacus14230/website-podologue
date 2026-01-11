@@ -384,6 +384,7 @@
             width: 120px;
             flex-shrink: 0;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            line-height: 0;
         }
 
         .publication-cover img {
@@ -830,8 +831,7 @@
                     </p>
                     <p>
                         Mon approche s'appuie sur un parcours complet. En complément de mon expertise en 
-                        podologie, j'ai suivi une <strong>formation de plusieurs mois en maréchalerie traditionnelle</strong>, 
-                        me permettant d'acquérir une réelle maîtrise de la forge et des techniques classiques. 
+                        podologie, j'ai suivi une <strong>formation de plusieurs mois en maréchalerie traditionnelle</strong>. 
                         Cette spécialisation totale me permet aujourd'hui d'analyser le sabot avec précision.
                     </p>
                     
@@ -1086,18 +1086,22 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // Protection des images
+        // Protection du site
         document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
         });
         document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
         });
     </script>
 </body>

@@ -1231,7 +1231,7 @@
                 <p class="hero-description">
                     Passionné par le bien-être équin, je me consacre à la santé des pieds 
                     de vos chevaux avec une approche respectueuse, naturelle et adaptée 
-                    à chaque animal.
+                    à chaque équidé.
                 </p>
                 <div class="hero-buttons">
                     <a href="contact.html" class="btn btn-primary">
@@ -1337,17 +1337,6 @@
                         Mon approche, la Podologie Équine Adaptative, se veut holistique 
                         et respectueuse. Je considère chaque cheval dans sa globalité.
                     </p>
-                    
-                    <div class="about-stats">
-                        <div class="about-stat">
-                            <div class="about-stat-number">6</div>
-                            <div class="about-stat-label">Semaines entre visites</div>
-                        </div>
-                        <div class="about-stat">
-                            <div class="about-stat-number">5</div>
-                            <div class="about-stat-label">Départements couverts</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1373,7 +1362,7 @@
                 <h2 class="zone-title">Zone d'intervention</h2>
                 <p class="zone-text">
                     Basé dans le <strong>Calvados</strong>, j'interviens également dans la Manche et l'Orne. 
-                    Déplacements réguliers toutes les 6 semaines pour un suivi optimal.
+                    Déplacements réguliers pour un suivi optimal.
                 </p>
                 <a href="contact.html" class="btn btn-primary">Me contacter</a>
             </div>
@@ -1494,18 +1483,22 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // Protection des images
+        // Protection du site
         document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
         });
         document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
         });
     </script>
 </body>
