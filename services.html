@@ -188,8 +188,8 @@
         }
 
         .service-visual {
-            aspect-ratio: 4/3;
-            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+            min-height: 280px;
+            background: #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -205,6 +205,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+        }
+
+        /* Image parage : pieds de face */
+        .service-visual img[alt*="Parage"] {
+            object-fit: cover;
+            object-position: center 30%;
+        }
+
+        /* Image pathologie : vue de la sole */
+        .service-visual img[alt*="pathologique"] {
+            object-position: center 40%;
         }
 
         .service-content h2 {
@@ -445,7 +457,7 @@
         <div class="services-detail-container">
             <div class="service-detail">
                 <div class="service-visual">
-                    <img src="parage.jpg" alt="Parage avant/après">
+                    <img src="parage.jpg" alt="Parage - pieds parés">
                 </div>
                 <div class="service-content">
                     <h2>Parage</h2>
