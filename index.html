@@ -70,17 +70,12 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            z-index: 10;
             padding: 2rem;
+            transition: opacity 1.5s ease;
         }
 
-        .preloader-intro.fade-out {
-            animation: cinematicFadeOut 2s ease forwards;
-        }
-
-        @keyframes cinematicFadeOut {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.05); filter: blur(8px); }
+        .preloader-intro.hide {
+            opacity: 0;
         }
 
         .intro-icon {
@@ -88,7 +83,7 @@
             height: 50px;
             margin-bottom: 2rem;
             opacity: 0;
-            animation: iconAppear 2.5s ease 0.5s forwards;
+            animation: iconAppear 2s ease 0.5s forwards;
         }
 
         .intro-icon svg {
@@ -114,7 +109,7 @@
             color: var(--color-gold);
             margin-bottom: 1rem;
             opacity: 0;
-            animation: textFadeUp 1.5s ease 2s forwards;
+            animation: textFadeUp 1.2s ease 1.2s forwards;
         }
 
         .intro-main-title {
@@ -126,7 +121,7 @@
             line-height: 1.2;
             margin-bottom: 0.5rem;
             opacity: 0;
-            animation: textFadeUp 1.5s ease 4s forwards;
+            animation: textFadeUp 1.2s ease 1.8s forwards;
         }
 
         .intro-main-title span {
@@ -142,7 +137,7 @@
             background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
             margin: 1.5rem 0;
             opacity: 0;
-            animation: lineExpand 1.5s ease 6s forwards;
+            animation: lineExpand 1.2s ease 2.5s forwards;
         }
 
         @keyframes lineExpand {
@@ -160,7 +155,7 @@
             line-height: 1.8;
             margin-bottom: 2rem;
             opacity: 0;
-            animation: textFadeUp 1.5s ease 8s forwards;
+            animation: textFadeUp 1.2s ease 3.2s forwards;
         }
 
         .intro-author {
@@ -169,7 +164,7 @@
             align-items: center;
             gap: 0.3rem;
             opacity: 0;
-            animation: textFadeUp 1.5s ease 11s forwards;
+            animation: textFadeUp 1.2s ease 4s forwards;
         }
 
         .intro-author-name {
@@ -194,121 +189,34 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Effet Projecteur Cinéma */
-        .cinema-room {
+        /* Vidéo avec effet Projecteur Cinéma */
+        .preloader-video-container {
             position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 2s ease;
-            overflow: hidden;
-        }
-
-        .cinema-room.show {
-            opacity: 1;
-        }
-
-        .cinema-room.fade-out {
-            transition: opacity 2s ease;
-            opacity: 0;
-        }
-
-        /* Faisceau du projecteur */
-        .projector-beam {
-            position: absolute;
-            top: -5%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 115%;
-            background: linear-gradient(
-                180deg,
-                rgba(255, 248, 220, 0.15) 0%,
-                rgba(255, 248, 220, 0.08) 20%,
-                rgba(255, 248, 220, 0.03) 50%,
-                transparent 100%
-            );
-            clip-path: polygon(45% 0%, 55% 0%, 85% 100%, 15% 100%);
-            pointer-events: none;
-            animation: beamFlicker 4s ease-in-out infinite;
-        }
-
-        @keyframes beamFlicker {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.9; }
-            75% { opacity: 0.65; }
-        }
-
-        /* Particules de poussière dans le faisceau */
-        .dust-particles {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 60% 20%, rgba(255,255,255,0.25) 0%, transparent 100%),
-                radial-gradient(1px 1px at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
-                radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.15) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 70% 40%, rgba(255,255,255,0.2) 0%, transparent 100%);
-            animation: dustFloat 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes dustFloat {
-            0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(-100%) translateX(20px); }
-        }
-
-        /* Écran de projection */
-        .projection-screen {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             width: 65%;
             max-width: 800px;
             aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
             background: #f5f5f0;
-            border-radius: 4px;
             box-shadow: 
                 0 0 100px rgba(255, 248, 220, 0.4),
-                0 0 60px rgba(255, 248, 220, 0.3),
-                inset 0 0 80px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+                0 0 60px rgba(255, 248, 220, 0.3);
+            transition: opacity 1.5s ease;
         }
 
-        /* Texture grain de l'écran */
-        .screen-grain {
-            position: absolute;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            mix-blend-mode: overlay;
+        .preloader-video-container.show {
+            opacity: 1;
         }
 
-        /* Bords de l'écran (cadre subtil) */
-        .screen-frame {
-            position: absolute;
-            inset: 0;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            pointer-events: none;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Vidéo dans l'écran */
-        .preloader-video-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        .preloader-video-container.hide {
+            opacity: 0;
         }
 
         .preloader-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: contrast(1.05) saturate(0.95);
         }
 
         .preloader-overlay {
@@ -356,13 +264,11 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 2s ease, transform 2s ease;
+            transition: opacity 1.5s ease;
         }
 
         .preloader-logo-container.show {
             opacity: 1;
-            transform: scale(1);
         }
 
         .preloader-logo {
@@ -1524,26 +1430,14 @@
             </div>
         </div>
         
-        <!-- Effet Projecteur Cinéma -->
-        <div class="cinema-room" id="cinemaRoom">
-            <!-- Faisceau du projecteur -->
-            <div class="projector-beam"></div>
-            <!-- Particules de poussière -->
-            <div class="dust-particles"></div>
-            
-            <!-- Écran de projection -->
-            <div class="projection-screen">
-                <div class="screen-grain"></div>
-                <div class="screen-frame"></div>
-                <div class="preloader-video-container" id="videoContainer">
-                    <video class="preloader-video" id="preloaderVideo" muted playsinline>
-                        <source src="horses.mp4" type="video/mp4">
-                    </video>
-                    <div class="preloader-overlay"></div>
-                    <div class="video-caption">
-                        <p>"La liberté commence par des pieds sains"</p>
-                    </div>
-                </div>
+        <!-- Vidéo de chevaux -->
+        <div class="preloader-video-container" id="videoContainer">
+            <video class="preloader-video" id="preloaderVideo" muted playsinline>
+                <source src="horses.mp4" type="video/mp4">
+            </video>
+            <div class="preloader-overlay"></div>
+            <div class="video-caption">
+                <p>"La liberté commence par des pieds sains"</p>
             </div>
         </div>
         
@@ -1795,64 +1689,30 @@
     </footer>
 
     <script>
-        // Preloader Cinématique : Intro → Effet Projecteur → Logo
-        window.addEventListener('load', () => {
-            const intro = document.getElementById('preloaderIntro');
-            const cinemaRoom = document.getElementById('cinemaRoom');
-            const video = document.getElementById('preloaderVideo');
-            const logoContainer = document.getElementById('logoContainer');
-            const preloader = document.getElementById('preloader');
-            
-            // Durée max de la vidéo : 7 secondes
-            const maxVideoDuration = 7;
-            
-            // Après 15s : fade out intro, lancer effet projecteur
-            setTimeout(() => {
-                intro.classList.add('fade-out');
-                
-                setTimeout(() => {
-                    cinemaRoom.classList.add('show');
-                    video.play();
-                    
-                    // Couper la vidéo après maxVideoDuration secondes
-                    setTimeout(() => {
-                        endVideoSequence();
-                    }, maxVideoDuration * 1000);
-                }, 1500);
-            }, 15000);
-            
-            // Fonction pour terminer la séquence vidéo
-            function endVideoSequence() {
-                if (cinemaRoom.classList.contains('fade-out')) return;
-                
-                cinemaRoom.classList.add('fade-out');
-                
-                // Afficher le logo
-                setTimeout(() => {
-                    logoContainer.classList.add('show');
-                }, 1000);
-                
-                // Cacher le preloader (logo visible 3.5s)
-                setTimeout(() => {
-                    preloader.classList.add('hidden');
-                }, 4500);
-            }
-            
-            // Si la vidéo se termine avant maxVideoDuration
-            video.addEventListener('ended', endVideoSequence);
-            
-            // Fallback si la vidéo ne charge pas (après 30s max)
-            setTimeout(() => {
-                if (!preloader.classList.contains('hidden')) {
-                    intro.classList.add('fade-out');
-                    cinemaRoom.classList.add('fade-out');
-                    logoContainer.classList.add('show');
-                    setTimeout(() => {
-                        preloader.classList.add('hidden');
-                    }, 3500);
-                }
-            }, 30000);
-        });
+        // Preloader : Intro → Vidéo → Logo → Page
+        const intro = document.getElementById('preloaderIntro');
+        const videoContainer = document.getElementById('videoContainer');
+        const video = document.getElementById('preloaderVideo');
+        const logoContainer = document.getElementById('logoContainer');
+        const preloader = document.getElementById('preloader');
+        
+        // Étape 1 : Après 7s, cacher intro et montrer vidéo
+        setTimeout(() => {
+            intro.classList.add('hide');
+            videoContainer.classList.add('show');
+            video.play().catch(() => {});
+        }, 7000);
+        
+        // Étape 2 : Après 14s (7+7), cacher vidéo et montrer logo
+        setTimeout(() => {
+            videoContainer.classList.add('hide');
+            logoContainer.classList.add('show');
+        }, 14000);
+        
+        // Étape 3 : Après 17.5s (14+3.5), cacher preloader
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+        }, 17500);
 
         // Navigation scroll effect
         const nav = document.getElementById('nav');
