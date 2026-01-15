@@ -53,7 +53,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 1.2s ease, visibility 1.2s ease;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
             overflow: hidden;
         }
 
@@ -75,12 +75,12 @@
         }
 
         .preloader-intro.fade-out {
-            animation: cinematicFadeOut 1.5s ease forwards;
+            animation: cinematicFadeOut 2s ease forwards;
         }
 
         @keyframes cinematicFadeOut {
             0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.1); filter: blur(10px); }
+            100% { opacity: 0; transform: scale(1.05); filter: blur(8px); }
         }
 
         .intro-icon {
@@ -88,7 +88,7 @@
             height: 50px;
             margin-bottom: 2rem;
             opacity: 0;
-            animation: iconAppear 1.5s ease 0.3s forwards;
+            animation: iconAppear 2.5s ease 0.5s forwards;
         }
 
         .intro-icon svg {
@@ -114,7 +114,7 @@
             color: var(--color-gold);
             margin-bottom: 1rem;
             opacity: 0;
-            animation: textFadeUp 1s ease 0.8s forwards;
+            animation: textFadeUp 1.5s ease 2s forwards;
         }
 
         .intro-main-title {
@@ -126,7 +126,7 @@
             line-height: 1.2;
             margin-bottom: 0.5rem;
             opacity: 0;
-            animation: textFadeUp 1s ease 1.1s forwards;
+            animation: textFadeUp 1.5s ease 4s forwards;
         }
 
         .intro-main-title span {
@@ -142,7 +142,7 @@
             background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
             margin: 1.5rem 0;
             opacity: 0;
-            animation: lineExpand 1s ease 1.6s forwards;
+            animation: lineExpand 1.5s ease 6s forwards;
         }
 
         @keyframes lineExpand {
@@ -160,7 +160,7 @@
             line-height: 1.8;
             margin-bottom: 2rem;
             opacity: 0;
-            animation: textFadeUp 1s ease 1.9s forwards;
+            animation: textFadeUp 1.5s ease 8s forwards;
         }
 
         .intro-author {
@@ -169,7 +169,7 @@
             align-items: center;
             gap: 0.3rem;
             opacity: 0;
-            animation: textFadeUp 1s ease 2.4s forwards;
+            animation: textFadeUp 1.5s ease 11s forwards;
         }
 
         .intro-author-name {
@@ -194,26 +194,121 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Vidéo */
-        .preloader-video-container {
+        /* Effet Projecteur Cinéma */
+        .cinema-room {
             position: absolute;
             inset: 0;
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 2s ease;
+            overflow: hidden;
         }
 
-        .preloader-video-container.show {
+        .cinema-room.show {
             opacity: 1;
         }
 
-        .preloader-video-container.fade-out {
+        .cinema-room.fade-out {
+            transition: opacity 2s ease;
             opacity: 0;
+        }
+
+        /* Faisceau du projecteur */
+        .projector-beam {
+            position: absolute;
+            top: -5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 115%;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 248, 220, 0.15) 0%,
+                rgba(255, 248, 220, 0.08) 20%,
+                rgba(255, 248, 220, 0.03) 50%,
+                transparent 100%
+            );
+            clip-path: polygon(45% 0%, 55% 0%, 85% 100%, 15% 100%);
+            pointer-events: none;
+            animation: beamFlicker 4s ease-in-out infinite;
+        }
+
+        @keyframes beamFlicker {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.9; }
+            75% { opacity: 0.65; }
+        }
+
+        /* Particules de poussière dans le faisceau */
+        .dust-particles {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 60% 20%, rgba(255,255,255,0.25) 0%, transparent 100%),
+                radial-gradient(1px 1px at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.15) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 70% 40%, rgba(255,255,255,0.2) 0%, transparent 100%);
+            animation: dustFloat 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes dustFloat {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100%) translateX(20px); }
+        }
+
+        /* Écran de projection */
+        .projection-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65%;
+            max-width: 800px;
+            aspect-ratio: 16/9;
+            background: #f5f5f0;
+            border-radius: 4px;
+            box-shadow: 
+                0 0 100px rgba(255, 248, 220, 0.4),
+                0 0 60px rgba(255, 248, 220, 0.3),
+                inset 0 0 80px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Texture grain de l'écran */
+        .screen-grain {
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* Bords de l'écran (cadre subtil) */
+        .screen-frame {
+            position: absolute;
+            inset: 0;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            pointer-events: none;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Vidéo dans l'écran */
+        .preloader-video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
 
         .preloader-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: contrast(1.05) saturate(0.95);
         }
 
         .preloader-overlay {
@@ -221,23 +316,23 @@
             inset: 0;
             background: linear-gradient(
                 180deg,
-                rgba(0, 0, 0, 0.5) 0%,
-                rgba(0, 0, 0, 0.2) 40%,
-                rgba(0, 0, 0, 0.2) 60%,
-                rgba(0, 0, 0, 0.6) 100%
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(0, 0, 0, 0.1) 40%,
+                rgba(0, 0, 0, 0.1) 60%,
+                rgba(0, 0, 0, 0.5) 100%
             );
             pointer-events: none;
         }
 
         .video-caption {
             position: absolute;
-            bottom: 10%;
+            bottom: 8%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
             opacity: 0;
-            animation: captionIn 1s ease 0.5s forwards;
+            animation: captionIn 1.5s ease 1s forwards;
         }
 
         @keyframes captionIn {
@@ -247,7 +342,7 @@
 
         .video-caption p {
             font-family: var(--font-display);
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-size: clamp(0.9rem, 2vw, 1.3rem);
             font-style: italic;
             color: rgba(255, 255, 255, 0.9);
             text-shadow: 0 2px 30px rgba(0, 0, 0, 0.8);
@@ -262,7 +357,7 @@
             justify-content: center;
             opacity: 0;
             transform: scale(0.8);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            transition: opacity 2s ease, transform 2s ease;
         }
 
         .preloader-logo-container.show {
@@ -1429,14 +1524,26 @@
             </div>
         </div>
         
-        <!-- Vidéo de chevaux -->
-        <div class="preloader-video-container" id="videoContainer">
-            <video class="preloader-video" id="preloaderVideo" muted playsinline>
-                <source src="horses.mp4" type="video/mp4">
-            </video>
-            <div class="preloader-overlay"></div>
-            <div class="video-caption">
-                <p>"La liberté commence par des pieds sains"</p>
+        <!-- Effet Projecteur Cinéma -->
+        <div class="cinema-room" id="cinemaRoom">
+            <!-- Faisceau du projecteur -->
+            <div class="projector-beam"></div>
+            <!-- Particules de poussière -->
+            <div class="dust-particles"></div>
+            
+            <!-- Écran de projection -->
+            <div class="projection-screen">
+                <div class="screen-grain"></div>
+                <div class="screen-frame"></div>
+                <div class="preloader-video-container" id="videoContainer">
+                    <video class="preloader-video" id="preloaderVideo" muted playsinline>
+                        <source src="horses.mp4" type="video/mp4">
+                    </video>
+                    <div class="preloader-overlay"></div>
+                    <div class="video-caption">
+                        <p>"La liberté commence par des pieds sains"</p>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -1688,63 +1795,63 @@
     </footer>
 
     <script>
-        // Preloader Cinématique : Intro → Vidéo (4s max) → Logo
+        // Preloader Cinématique : Intro → Effet Projecteur → Logo
         window.addEventListener('load', () => {
             const intro = document.getElementById('preloaderIntro');
-            const videoContainer = document.getElementById('videoContainer');
+            const cinemaRoom = document.getElementById('cinemaRoom');
             const video = document.getElementById('preloaderVideo');
             const logoContainer = document.getElementById('logoContainer');
             const preloader = document.getElementById('preloader');
             
-            // Durée max de la vidéo : 4 secondes
-            const maxVideoDuration = 4;
+            // Durée max de la vidéo : 7 secondes
+            const maxVideoDuration = 7;
             
-            // Après 4s : fade out intro, lancer vidéo
+            // Après 15s : fade out intro, lancer effet projecteur
             setTimeout(() => {
                 intro.classList.add('fade-out');
                 
                 setTimeout(() => {
-                    videoContainer.classList.add('show');
+                    cinemaRoom.classList.add('show');
                     video.play();
                     
                     // Couper la vidéo après maxVideoDuration secondes
                     setTimeout(() => {
                         endVideoSequence();
                     }, maxVideoDuration * 1000);
-                }, 800);
-            }, 4000);
+                }, 1500);
+            }, 15000);
             
             // Fonction pour terminer la séquence vidéo
             function endVideoSequence() {
-                if (videoContainer.classList.contains('fade-out')) return;
+                if (cinemaRoom.classList.contains('fade-out')) return;
                 
-                videoContainer.classList.add('fade-out');
+                cinemaRoom.classList.add('fade-out');
                 
                 // Afficher le logo
                 setTimeout(() => {
                     logoContainer.classList.add('show');
-                }, 800);
+                }, 1000);
                 
-                // Cacher le preloader (logo visible 2s)
+                // Cacher le preloader (logo visible 3.5s)
                 setTimeout(() => {
                     preloader.classList.add('hidden');
-                }, 2800);
+                }, 4500);
             }
             
             // Si la vidéo se termine avant maxVideoDuration
             video.addEventListener('ended', endVideoSequence);
             
-            // Fallback si la vidéo ne charge pas (après 10s max)
+            // Fallback si la vidéo ne charge pas (après 30s max)
             setTimeout(() => {
                 if (!preloader.classList.contains('hidden')) {
                     intro.classList.add('fade-out');
-                    videoContainer.classList.add('fade-out');
+                    cinemaRoom.classList.add('fade-out');
                     logoContainer.classList.add('show');
                     setTimeout(() => {
                         preloader.classList.add('hidden');
-                    }, 2500);
+                    }, 3500);
                 }
-            }, 10000);
+            }, 30000);
         });
 
         // Navigation scroll effect
@@ -1796,14 +1903,4 @@
             e.preventDefault();
             return false;
         });
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-    </script>
-</body>
-</html>
+        document.addEventListe
