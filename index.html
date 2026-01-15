@@ -48,12 +48,13 @@
         .preloader {
             position: fixed;
             inset: 0;
-            background: var(--color-dark);
+            background: #000;
             z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 1s ease, visibility 1s ease;
+            overflow: hidden;
         }
 
         .preloader.hidden {
@@ -61,14 +62,50 @@
             visibility: hidden;
         }
 
-        .preloader-logo {
-            width: 120px;
-            animation: pulse 1.5s ease-in-out infinite;
+        /* Vidéo de fond */
+        .preloader-video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 1s ease;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1); }
+        .preloader-video.fade-out {
+            opacity: 0;
+        }
+
+        /* Overlay sombre sur la vidéo */
+        .preloader-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        /* Logo après la vidéo */
+        .preloader-logo-container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .preloader-logo-container.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .preloader-logo {
+            width: 280px;
+            max-width: 70vw;
+            border-radius: 20px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.8));
         }
 
         /* Navigation */
@@ -1197,7 +1234,16 @@
 <body>
     <!-- Preloader -->
     <div class="preloader" id="preloader">
-        <img src="logo.png" alt="Chargement..." class="preloader-logo">
+        <!-- Vidéo de chevaux -->
+        <video class="preloader-video" id="preloaderVideo" autoplay muted playsinline>
+            <source src="horses.mp4" type="video/mp4">
+        </video>
+        <div class="preloader-overlay"></div>
+        
+        <!-- Logo après la vidéo -->
+        <div class="preloader-logo-container" id="logoContainer">
+            <img src="logo.png" alt="Fabien Walter" class="preloader-logo">
+        </div>
     </div>
 
     <!-- Navigation -->
@@ -1442,11 +1488,38 @@
     </footer>
 
     <script>
-        // Preloader
+        // Preloader avec vidéo de chevaux puis logo
         window.addEventListener('load', () => {
+            const video = document.getElementById('preloaderVideo');
+            const logoContainer = document.getElementById('logoContainer');
+            const preloader = document.getElementById('preloader');
+            
+            // Quand la vidéo se termine
+            video.addEventListener('ended', () => {
+                // Fade out de la vidéo
+                video.classList.add('fade-out');
+                
+                // Afficher le logo après 0.5s
+                setTimeout(() => {
+                    logoContainer.classList.add('show');
+                }, 500);
+                
+                // Cacher le preloader après 2.5s (logo visible 2s)
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                }, 2500);
+            });
+            
+            // Fallback si la vidéo ne charge pas (après 8s max)
             setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-            }, 800);
+                if (!preloader.classList.contains('hidden')) {
+                    video.classList.add('fade-out');
+                    logoContainer.classList.add('show');
+                    setTimeout(() => {
+                        preloader.classList.add('hidden');
+                    }, 2000);
+                }
+            }, 8000);
         });
 
         // Navigation scroll effect
