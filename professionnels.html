@@ -159,7 +159,7 @@
             margin: 0 auto;
         }
 
-        /* Admin Button (roulette) */
+        /* Admin Button */
         .admin-btn {
             position: fixed;
             bottom: 2rem;
@@ -190,7 +190,6 @@
         }
 
         .admin-btn:hover i { transform: rotate(90deg); }
-        .admin-btn.active i { transform: rotate(180deg); }
 
         /* Cards Section */
         .cards-section {
@@ -246,13 +245,6 @@
         .card-avatar i {
             font-size: 1.8rem;
             color: var(--color-gold);
-        }
-
-        .card-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
         }
 
         .card-name {
@@ -325,18 +317,23 @@
         .card-delete:hover { background: #e55; }
         .admin-mode .card-delete { display: flex; }
 
-        /* Empty State */
-        .empty-state {
+        /* Loading & Empty State */
+        .loading, .empty-state {
             text-align: center;
             padding: 4rem 2rem;
             color: var(--color-taupe);
+            grid-column: 1 / -1;
         }
 
-        .empty-state i {
-            font-size: 3.5rem;
+        .loading i, .empty-state i {
+            font-size: 3rem;
             color: var(--color-sand);
             margin-bottom: 1rem;
         }
+
+        .loading i { animation: spin 1s linear infinite; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .empty-state h3 {
             font-family: var(--font-display);
@@ -457,9 +454,7 @@
 
         .error-msg.show { display: block; }
 
-        .password-wrap {
-            position: relative;
-        }
+        .password-wrap { position: relative; }
 
         .password-toggle {
             position: absolute;
@@ -545,7 +540,12 @@
     <!-- Cards Section -->
     <section class="cards-section" id="cardsSection">
         <div class="cards-container">
-            <div class="cards-grid" id="cardsGrid"></div>
+            <div class="cards-grid" id="cardsGrid">
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Chargement...</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -566,7 +566,7 @@
                     <label class="form-label">Mot de passe</label>
                     <div class="password-wrap">
                         <input type="password" class="form-input" id="passInput" placeholder="••••••••">
-                        <button class="password-toggle" onclick="togglePass()">
+                        <button class="password-toggle" type="button" onclick="togglePass()">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
                     </div>
@@ -583,11 +583,11 @@
     <div class="modal" id="addModal">
         <div class="modal-box">
             <div class="modal-head">
-                <h2><i class="fas fa-plus"></i> Ajouter un pro</h2>
+                <h2><i class="fas fa-plus"></i> Ajouter un professionnel</h2>
                 <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="addForm" onsubmit="addCard(event)">
+                <form id="addForm">
                     <div class="form-group">
                         <label class="form-label">Nom complet *</label>
                         <input type="text" class="form-input" id="fName" required placeholder="Dr. Jean Dupont">
@@ -629,16 +629,49 @@
         <p>&copy; 2026 <a href="index.html">Fabien Walter</a> - Podologue Équin</p>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
     <script>
-        // ========== CONFIG ==========
-        const ADMIN_PASS = 'admin'; // <-- CHANGER CE MOT DE PASSE !
-        
+        // ========== FIREBASE CONFIG ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyDl0N5Cbr8vYyTPj-tbgIIJO5ikYv8FpuM",
+            authDomain: "site-web-podologue-equin.firebaseapp.com",
+            projectId: "site-web-podologue-equin",
+            storageBucket: "site-web-podologue-equin.firebasestorage.app",
+            messagingSenderId: "918072399279",
+            appId: "1:918072399279:web:3ff568ed25490526e9cb5a"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const prosRef = db.collection('professionnels');
+
+        // ========== CONFIG ADMIN ==========
+        const ADMIN_PASS = 'FabienPodo2026'; // <-- MOT DE PASSE ADMIN (à changer)
+
         // ========== STATE ==========
         let isAdmin = false;
-        let pros = JSON.parse(localStorage.getItem('pros') || '[]');
 
-        // ========== RENDER ==========
-        function render() {
+        // ========== CHARGER LES PROS EN TEMPS RÉEL ==========
+        prosRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+            const pros = [];
+            snapshot.forEach(doc => pros.push({ id: doc.id, ...doc.data() }));
+            renderCards(pros);
+        }, err => {
+            console.error('Erreur:', err);
+            document.getElementById('cardsGrid').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Erreur de connexion</h3>
+                    <p>Vérifiez que Firestore est activé dans la console Firebase.</p>
+                </div>
+            `;
+        });
+
+        // ========== AFFICHER LES CARTES ==========
+        function renderCards(pros) {
             const grid = document.getElementById('cardsGrid');
             
             if (pros.length === 0) {
@@ -652,9 +685,11 @@
                 return;
             }
 
-            grid.innerHTML = pros.map((p, i) => `
+            grid.innerHTML = pros.map(p => `
                 <div class="card">
-                    <button class="card-delete" onclick="delCard(${i})"><i class="fas fa-times"></i></button>
+                    <button class="card-delete" onclick="deletePro('${p.id}')" title="Supprimer">
+                        <i class="fas fa-times"></i>
+                    </button>
                     <div class="card-header">
                         <div class="card-avatar"><i class="fas fa-user"></i></div>
                         <h3 class="card-name">${esc(p.name)}</h3>
@@ -678,8 +713,43 @@
             return d.innerHTML;
         }
 
+        // ========== AJOUTER UN PRO ==========
+        document.getElementById('addForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                await prosRef.add({
+                    name: document.getElementById('fName').value.trim(),
+                    job: document.getElementById('fJob').value.trim(),
+                    phone: document.getElementById('fPhone').value.trim(),
+                    email: document.getElementById('fEmail').value.trim(),
+                    loc: document.getElementById('fLoc').value.trim(),
+                    web: document.getElementById('fWeb').value.trim(),
+                    desc: document.getElementById('fDesc').value.trim(),
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                closeModal('addModal');
+                document.getElementById('addForm').reset();
+            } catch (err) {
+                console.error('Erreur ajout:', err);
+                alert('Erreur lors de l\'ajout. Vérifiez les règles Firestore.');
+            }
+        });
+
+        // ========== SUPPRIMER UN PRO ==========
+        async function deletePro(id) {
+            if (confirm('Supprimer ce professionnel ?')) {
+                try {
+                    await prosRef.doc(id).delete();
+                } catch (err) {
+                    console.error('Erreur suppression:', err);
+                    alert('Erreur lors de la suppression.');
+                }
+            }
+        }
+
         // ========== ADMIN ==========
-        document.getElementById('adminBtn').onclick = function() {
+        document.getElementById('adminBtn').onclick = () => {
             if (isAdmin) {
                 document.getElementById('addModal').classList.add('show');
             } else {
@@ -694,7 +764,6 @@
                 isAdmin = true;
                 closeModal('passModal');
                 document.getElementById('cardsSection').classList.add('admin-mode');
-                document.getElementById('adminBtn').classList.add('active');
                 document.getElementById('adminBtn').innerHTML = '<i class="fas fa-plus"></i>';
                 document.getElementById('adminBtn').title = 'Ajouter un professionnel';
             } else {
@@ -704,50 +773,15 @@
             }
         }
 
-        document.getElementById('passInput').onkeypress = function(e) {
+        document.getElementById('passInput').onkeypress = e => {
             if (e.key === 'Enter') checkPassword();
         };
 
         function togglePass() {
             const input = document.getElementById('passInput');
             const icon = document.getElementById('eyeIcon');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye-slash';
-            } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye';
-            }
-        }
-
-        // ========== CARDS ==========
-        function addCard(e) {
-            e.preventDefault();
-            pros.push({
-                name: document.getElementById('fName').value,
-                job: document.getElementById('fJob').value,
-                phone: document.getElementById('fPhone').value,
-                email: document.getElementById('fEmail').value,
-                loc: document.getElementById('fLoc').value,
-                web: document.getElementById('fWeb').value,
-                desc: document.getElementById('fDesc').value
-            });
-            save();
-            closeModal('addModal');
-            document.getElementById('addForm').reset();
-            render();
-        }
-
-        function delCard(i) {
-            if (confirm('Supprimer ce professionnel ?')) {
-                pros.splice(i, 1);
-                save();
-                render();
-            }
-        }
-
-        function save() {
-            localStorage.setItem('pros', JSON.stringify(pros));
+            input.type = input.type === 'password' ? 'text' : 'password';
+            icon.className = input.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
         }
 
         // ========== MODAL ==========
@@ -758,9 +792,7 @@
         }
 
         document.querySelectorAll('.modal').forEach(m => {
-            m.onclick = function(e) {
-                if (e.target === m) closeModal(m.id);
-            };
+            m.onclick = e => { if (e.target === m) closeModal(m.id); };
         });
 
         // ========== NAV MOBILE ==========
@@ -770,14 +802,11 @@
         };
 
         document.querySelectorAll('.nav-link').forEach(l => {
-            l.onclick = function() {
+            l.onclick = () => {
                 document.getElementById('navToggle').classList.remove('active');
                 document.getElementById('navMenu').classList.remove('active');
             };
         });
-
-        // ========== INIT ==========
-        render();
     </script>
 </body>
 </html>

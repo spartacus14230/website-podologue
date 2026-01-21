@@ -459,6 +459,7 @@
                 <li><a href="services.html" class="nav-link active">Services</a></li>
                 <li><a href="apropos.html" class="nav-link">À Propos</a></li>
                 <li><a href="galerie.html" class="nav-link">Galerie</a></li>
+                <li><a href="professionnels.html" class="nav-link">Pros</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-toggle" id="navToggle">
@@ -597,6 +598,7 @@
                         <li><a href="services.html">Services</a></li>
                         <li><a href="apropos.html">À Propos</a></li>
                         <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="professionnels.html">Pros</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -611,7 +613,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="sms:0648157044">06.48.15.70.44 (SMS)</a></li>
-                        <li><a href="mailto:fwpodologue.equin@gmail.com">Email</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#88eefff8e7ece7e4e7effdeda6edf9fde1e6c8efe5e9e1e4a6ebe7e5">Email</a></li>
                         <li>
                             <a href="https://www.facebook.com/fabienwalterpodologueequin" target="_blank" class="facebook-btn">
                                 <i class="fab fa-facebook-f"></i> Rejoignez-moi
@@ -626,7 +628,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
         navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
@@ -643,11 +645,4 @@
         document.addEventListener('selectstart', function(e) {
             e.preventDefault();
             return false;
-        });
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-    </script>
-</body>
-</html>
+        })
