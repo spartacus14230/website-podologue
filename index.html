@@ -1498,8 +1498,6 @@
             setTimeout(nextSlide, durations[0]);
         })();
 
-        });
-
         // Navigation scroll effect
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
@@ -1549,4 +1547,14 @@
             e.preventDefault();
             return false;
         });
-        document.addEventListe
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
