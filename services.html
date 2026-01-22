@@ -613,7 +613,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="sms:0648157044">06.48.15.70.44 (SMS)</a></li>
-                        <li><a href="/cdn-cgi/l/email-protection#88eefff8e7ece7e4e7effdeda6edf9fde1e6c8efe5e9e1e4a6ebe7e5">Email</a></li>
+                        <li><a href="mailto:fwpodologue.equin@gmail.com">Email</a></li>
                         <li>
                             <a href="https://www.facebook.com/fabienwalterpodologueequin" target="_blank" class="facebook-btn">
                                 <i class="fab fa-facebook-f"></i> Rejoignez-moi
@@ -628,7 +628,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
         navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
@@ -645,4 +645,11 @@
         document.addEventListener('selectstart', function(e) {
             e.preventDefault();
             return false;
-        })
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>

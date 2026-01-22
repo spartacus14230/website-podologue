@@ -512,7 +512,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="sms:0648157044">06.48.15.70.44 (SMS)</a></li>
-                        <li><a href="/cdn-cgi/l/email-protection#c7a1b0b7a8a3a8aba8a0b2a2e9a2b6b2aea987a0aaa6aeabe9a4a8aa"><span class="__cf_email__" data-cfemail="284e5f58474c4744474f5d4d064d595d4146684f45494144064b4745">[email&#160;protected]</span></a></li>
+                        <li><a href="mailto:fwpodologue.equin@gmail.com">fwpodologue.equin@gmail.com</a></li>
                     </ul>
                 </div>
             </div>
@@ -524,7 +524,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Mobile menu
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
@@ -536,18 +536,20 @@
 
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // Protection du site
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
+              eturn false;
         });
         document.addEventListener('dragstart', function(e) {
             e.preventDefault();
             return false;
         });
-        document.addEventListe
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
