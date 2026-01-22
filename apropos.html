@@ -1043,7 +1043,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="sms:0648157044">06.48.15.70.44 (SMS)</a></li>
-                        <li><a href="/cdn-cgi/l/email-protection#8debfafde2e9e2e1e2eaf8e8a3e8fcf8e4e3cdeae0ece4e1a3eee2e0"><span class="__cf_email__" data-cfemail="e38594938c878c8f8c849686cd8692968a8da3848e828a8fcd808c8e">[email&#160;protected]</span></a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#5b3d2c2b343f3437343c2e3e753e2a2e32351b3c363a323775383436"><span class="__cf_email__" data-cfemail="503627203f343f3c3f3725357e352125393e10373d31393c7e333f3d">[email&#160;protected]</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -1099,4 +1099,14 @@
             e.preventDefault();
             return false;
         });
-        document.addEventListe
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
