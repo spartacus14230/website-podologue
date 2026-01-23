@@ -247,6 +247,12 @@
             color: var(--color-gold);
         }
 
+        .card-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .card-name {
             font-family: var(--font-display);
             font-size: 1.2rem;
@@ -420,6 +426,54 @@
             resize: vertical;
         }
 
+        .logo-upload {
+            width: 100%;
+        }
+
+        .logo-preview {
+            width: 100px;
+            height: 100px;
+            border: 2px dashed rgba(107,99,90,0.3);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+            background: var(--color-cream);
+        }
+
+        .logo-preview:hover {
+            border-color: var(--color-gold);
+            background: rgba(196,169,98,0.1);
+        }
+
+        .logo-preview i {
+            font-size: 1.5rem;
+            color: var(--color-sand);
+            margin-bottom: 0.3rem;
+        }
+
+        .logo-preview span {
+            font-size: 0.65rem;
+            color: var(--color-taupe);
+            text-align: center;
+        }
+
+        .logo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-preview.has-image i,
+        .logo-preview.has-image span {
+            display: none;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -589,6 +643,16 @@
             <div class="modal-body">
                 <form id="addForm">
                     <div class="form-group">
+                        <label class="form-label">Logo / Photo</label>
+                        <div class="logo-upload">
+                            <div class="logo-preview" id="logoPreview">
+                                <i class="fas fa-image"></i>
+                                <span>Cliquez pour ajouter</span>
+                            </div>
+                            <input type="file" id="fLogo" accept="image/*" style="display:none">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">Nom complet *</label>
                         <input type="text" class="form-input" id="fName" required placeholder="Dr. Jean Dupont">
                     </div>
@@ -691,7 +755,9 @@
                         <i class="fas fa-times"></i>
                     </button>
                     <div class="card-header">
-                        <div class="card-avatar"><i class="fas fa-user"></i></div>
+                        <div class="card-avatar">
+                            ${p.logo ? `<img src="${p.logo}" alt="${esc(p.name)}">` : '<i class="fas fa-user"></i>'}
+                        </div>
                         <h3 class="card-name">${esc(p.name)}</h3>
                         <p class="card-job">${esc(p.job)}</p>
                     </div>
@@ -714,6 +780,31 @@
         }
 
         // ========== AJOUTER UN PRO ==========
+        let currentLogo = '';
+
+        // Gestion de l'upload du logo
+        document.getElementById('logoPreview').onclick = () => {
+            document.getElementById('fLogo').click();
+        };
+
+        document.getElementById('fLogo').onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 500000) { // 500KB max
+                    alert('Image trop lourde (max 500KB)');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    currentLogo = event.target.result;
+                    const preview = document.getElementById('logoPreview');
+                    preview.innerHTML = `<img src="${currentLogo}" alt="Logo">`;
+                    preview.classList.add('has-image');
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
         document.getElementById('addForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -726,10 +817,16 @@
                     loc: document.getElementById('fLoc').value.trim(),
                     web: document.getElementById('fWeb').value.trim(),
                     desc: document.getElementById('fDesc').value.trim(),
+                    logo: currentLogo,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
                 closeModal('addModal');
                 document.getElementById('addForm').reset();
+                // Reset logo preview
+                currentLogo = '';
+                const preview = document.getElementById('logoPreview');
+                preview.innerHTML = '<i class="fas fa-image"></i><span>Cliquez pour ajouter</span>';
+                preview.classList.remove('has-image');
             } catch (err) {
                 console.error('Erreur ajout:', err);
                 alert('Erreur lors de l\'ajout. Vérifiez les règles Firestore.');
