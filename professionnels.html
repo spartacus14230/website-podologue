@@ -303,25 +303,41 @@
             line-height: 1.6;
         }
 
-        .card-delete {
+        .card-actions {
             position: absolute;
             top: 8px;
             right: 8px;
+            display: none;
+            gap: 5px;
+        }
+
+        .admin-mode .card-actions { display: flex; }
+
+        .card-edit, .card-delete {
             width: 28px;
             height: 28px;
-            background: #c44;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-edit {
+            background: var(--color-gold);
+        }
+
+        .card-edit:hover { background: var(--color-gold-light); }
+
+        .card-delete {
+            background: #c44;
         }
 
         .card-delete:hover { background: #e55; }
-        .admin-mode .card-delete { display: flex; }
 
         /* Loading & Empty State */
         .loading, .empty-state {
@@ -718,22 +734,6 @@
         // ========== STATE ==========
         let isAdmin = false;
 
-        // ========== CHARGER LES PROS EN TEMPS RÉEL ==========
-        prosRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
-            const pros = [];
-            snapshot.forEach(doc => pros.push({ id: doc.id, ...doc.data() }));
-            renderCards(pros);
-        }, err => {
-            console.error('Erreur:', err);
-            document.getElementById('cardsGrid').innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Erreur de connexion</h3>
-                    <p>Vérifiez que Firestore est activé dans la console Firebase.</p>
-                </div>
-            `;
-        });
-
         // ========== AFFICHER LES CARTES ==========
         function renderCards(pros) {
             const grid = document.getElementById('cardsGrid');
@@ -751,9 +751,14 @@
 
             grid.innerHTML = pros.map(p => `
                 <div class="card">
-                    <button class="card-delete" onclick="deletePro('${p.id}')" title="Supprimer">
-                        <i class="fas fa-times"></i>
-                    </button>
+                    <div class="card-actions">
+                        <button class="card-edit" onclick="editPro('${p.id}')" title="Modifier">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="card-delete" onclick="deletePro('${p.id}')" title="Supprimer">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="card-header">
                         <div class="card-avatar">
                             ${p.logo ? `<img src="${p.logo}" alt="${esc(p.name)}">` : '<i class="fas fa-user"></i>'}
@@ -779,8 +784,26 @@
             return d.innerHTML;
         }
 
-        // ========== AJOUTER UN PRO ==========
+        // ========== AJOUTER / MODIFIER UN PRO ==========
         let currentLogo = '';
+        let editingId = null; // null = ajout, sinon = id du pro à modifier
+        let prosData = []; // Stocker les données pour édition
+
+        // Stocker les données quand on les charge
+        prosRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+            prosData = [];
+            snapshot.forEach(doc => prosData.push({ id: doc.id, ...doc.data() }));
+            renderCards(prosData);
+        }, err => {
+            console.error('Erreur:', err);
+            document.getElementById('cardsGrid').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Erreur de connexion</h3>
+                    <p>Vérifiez que Firestore est activé dans la console Firebase.</p>
+                </div>
+            `;
+        });
 
         // Gestion de l'upload du logo
         document.getElementById('logoPreview').onclick = () => {
@@ -805,31 +828,81 @@
             }
         };
 
+        // Fonction pour éditer un professionnel
+        function editPro(id) {
+            const pro = prosData.find(p => p.id === id);
+            if (!pro) return;
+
+            editingId = id;
+            
+            // Remplir le formulaire
+            document.getElementById('fName').value = pro.name || '';
+            document.getElementById('fJob').value = pro.job || '';
+            document.getElementById('fPhone').value = pro.phone || '';
+            document.getElementById('fEmail').value = pro.email || '';
+            document.getElementById('fLoc').value = pro.loc || '';
+            document.getElementById('fWeb').value = pro.web || '';
+            document.getElementById('fDesc').value = pro.desc || '';
+            
+            // Logo
+            currentLogo = pro.logo || '';
+            const preview = document.getElementById('logoPreview');
+            if (currentLogo) {
+                preview.innerHTML = `<img src="${currentLogo}" alt="Logo">`;
+                preview.classList.add('has-image');
+            } else {
+                preview.innerHTML = '<i class="fas fa-image"></i><span>Cliquez pour ajouter</span>';
+                preview.classList.remove('has-image');
+            }
+
+            // Changer le titre du modal
+            document.querySelector('#addModal .modal-head h2').innerHTML = '<i class="fas fa-pen"></i> Modifier le professionnel';
+            document.querySelector('#addForm button[type="submit"]').innerHTML = '<i class="fas fa-save"></i> Enregistrer';
+
+            // Ouvrir le modal
+            document.getElementById('addModal').classList.add('show');
+        }
+
+        // Reset du formulaire pour ajout
+        function resetFormForAdd() {
+            editingId = null;
+            currentLogo = '';
+            document.getElementById('addForm').reset();
+            const preview = document.getElementById('logoPreview');
+            preview.innerHTML = '<i class="fas fa-image"></i><span>Cliquez pour ajouter</span>';
+            preview.classList.remove('has-image');
+            document.querySelector('#addModal .modal-head h2').innerHTML = '<i class="fas fa-plus"></i> Ajouter un professionnel';
+            document.querySelector('#addForm button[type="submit"]').innerHTML = '<i class="fas fa-check"></i> Ajouter';
+        }
+
         document.getElementById('addForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            const data = {
+                name: document.getElementById('fName').value.trim(),
+                job: document.getElementById('fJob').value.trim(),
+                phone: document.getElementById('fPhone').value.trim(),
+                email: document.getElementById('fEmail').value.trim(),
+                loc: document.getElementById('fLoc').value.trim(),
+                web: document.getElementById('fWeb').value.trim(),
+                desc: document.getElementById('fDesc').value.trim(),
+                logo: currentLogo
+            };
+
             try {
-                await prosRef.add({
-                    name: document.getElementById('fName').value.trim(),
-                    job: document.getElementById('fJob').value.trim(),
-                    phone: document.getElementById('fPhone').value.trim(),
-                    email: document.getElementById('fEmail').value.trim(),
-                    loc: document.getElementById('fLoc').value.trim(),
-                    web: document.getElementById('fWeb').value.trim(),
-                    desc: document.getElementById('fDesc').value.trim(),
-                    logo: currentLogo,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
+                if (editingId) {
+                    // Modification
+                    await prosRef.doc(editingId).update(data);
+                } else {
+                    // Ajout
+                    data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                    await prosRef.add(data);
+                }
                 closeModal('addModal');
-                document.getElementById('addForm').reset();
-                // Reset logo preview
-                currentLogo = '';
-                const preview = document.getElementById('logoPreview');
-                preview.innerHTML = '<i class="fas fa-image"></i><span>Cliquez pour ajouter</span>';
-                preview.classList.remove('has-image');
+                resetFormForAdd();
             } catch (err) {
-                console.error('Erreur ajout:', err);
-                alert('Erreur lors de l\'ajout. Vérifiez les règles Firestore.');
+                console.error('Erreur:', err);
+                alert('Erreur lors de l\'enregistrement. Vérifiez les règles Firestore.');
             }
         });
 
@@ -848,6 +921,7 @@
         // ========== ADMIN ==========
         document.getElementById('adminBtn').onclick = () => {
             if (isAdmin) {
+                resetFormForAdd();
                 document.getElementById('addModal').classList.add('show');
             } else {
                 document.getElementById('passModal').classList.add('show');
@@ -886,6 +960,9 @@
             document.getElementById(id).classList.remove('show');
             document.getElementById('passError').classList.remove('show');
             document.getElementById('passInput').value = '';
+            if (id === 'addModal') {
+                resetFormForAdd();
+            }
         }
 
         document.querySelectorAll('.modal').forEach(m => {
