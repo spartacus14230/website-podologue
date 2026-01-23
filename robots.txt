@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.fwpodologue-equin.fr/sitemap.xml
