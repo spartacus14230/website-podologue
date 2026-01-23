@@ -1550,4 +1550,14 @@
             e.preventDefault();
             return false;
         });
-        document.addEventList
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
